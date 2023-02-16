@@ -367,17 +367,17 @@ const Commands = {
     // Paste additions
     pasteFormatOnly: {
       fn: SheetActions.pasteFormatOnly.bind(SheetActions),
-      name: "Paste",
+      name: "Paste format",
       group: "editing"
     },
     pasteValuesOnly: {
       fn: SheetActions.pasteValuesOnly.bind(SheetActions),
-      name: "Paste",
+      name: "Paste values",
       group: "editing"
     },
     pasteFormulaOnly: {
       fn: SheetActions.pasteFormulaOnly.bind(SheetActions),
-      name: "Paste",
+      name: "Paste formula",
       group: "editing"
     },
 
@@ -464,7 +464,7 @@ const Commands = {
     colorCellFontColorBlack: {
       fn: SheetActions.colorCellFontColorBlack.bind(SheetActions),
       name: "Font black",
-      group: "fontr color"
+      group: "font color"
     },
 
     // Formatting, numeric
@@ -646,6 +646,7 @@ const Commands = {
 
       // Misc
       "showHelp": "?",
+      "showHelp": "H",
       "toggleFullScreen": ";•w•f", // Mnemonic for "window full screen"
       "openCellAsUrl": ";•o",
       // For some reason Cmd-r, which normally reloads the page, is disabled by Sheets.

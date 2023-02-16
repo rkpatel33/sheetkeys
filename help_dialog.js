@@ -48,7 +48,17 @@ class HelpDialog {
       "selection": [],
       "tabs": [],
       "formatting": [],
-      "other": []
+      "other": [],
+      // Rishi: command groups
+      "cell color": [],
+      "font color": [],
+      "number format": [],
+      "fill": [],
+      "filter": [],
+      "selection": [],
+      "border": [],
+      "zoom": [],
+      "ui": [],
     };
 
     for (const [key, command] of Object.entries(Commands.commands))
@@ -178,8 +188,8 @@ class HelpDialog {
 
   async commitChange() {
     const newKeyMapping = this.edits.keyStrings.length > 0 ?
-          this.edits.keyStrings.join(Commands.KEY_SEPARATOR) :
-          null;
+      this.edits.keyStrings.join(Commands.KEY_SEPARATOR) :
+      null;
     const commandName = this.edits.rowEl.dataset.command;
     await Settings.changeKeyMapping(commandName, newKeyMapping);
     this.edits.rowEl.dataset.mapping = newKeyMapping || "";
@@ -200,7 +210,7 @@ class HelpDialog {
 
     this.edits.keyStrings.push(keyString);
     this.displayKeyString(this.edits.rowEl.querySelector(".shortcut"),
-                          this.edits.keyStrings.join(Commands.KEY_SEPARATOR));
+      this.edits.keyStrings.join(Commands.KEY_SEPARATOR));
   }
 
   async populateDialog() {
