@@ -572,6 +572,14 @@ const SheetActions = {
   },
 
   // Rishi: Zoom
+  getZoomMenu() { return this.getMenuItem("100%").parentNode; },
+
+  activateZoomMenu() {
+    KeyboardUtils.simulateClick(this.getMenuItem("Zoom►"));
+    // It's been shown; hide it again.
+    this.getZoomMenu().style.display = "none";
+  },
+
   setZoom75() {
     this.activateZoomMenu();
     KeyboardUtils.simulateClick(this.getMenuItem("75%"));
@@ -588,6 +596,12 @@ const SheetActions = {
     this.activateZoomMenu();
     KeyboardUtils.simulateClick(this.getMenuItem("100%"));
     console.log('Zoom 100%');
+  },
+
+  setZoom125() {
+    this.activateZoomMenu();
+    KeyboardUtils.simulateClick(this.getMenuItem("125%"));
+    console.log('Zoom 125%');
   },
 
   //
@@ -747,6 +761,26 @@ const SheetActions = {
   colorCellDarkGray1() { this.changeCellColor(this.colors.darkGray1); },
 
   // Rishi: Borders
+  clickBorderButton(borderType) {
+    // Click toolbar  button first
+    const toolbarSelector = `*[aria-label='Borders']`;
+    const toolbarButton = document.querySelector(toolbarSelector);
+    KeyboardUtils.simulateClick(toolbarButton);
+
+    // Then click submenu button for actual border type
+    const selector = `*[aria-label='${borderType}']`;
+    const borderButton = document.querySelector(selector);
+    if (!borderButton) {
+      throw `Couldn't find the border button with selector ${selector}`;
+    }
+
+    // Click the toolbar button again to close it
+    KeyboardUtils.simulateClick(toolbarButton);
+    // Click border button AFTER when its in hidden state
+    // TODO: Button remains selected, inlike in getColorButton, not sure why
+    KeyboardUtils.simulateClick(borderButton);
+  },
+
   borderTop() { this.clickToolbarButton(this.buttons.borderTop); },
   borderBottom() {
     this.clickBorderButton("Bottom border");

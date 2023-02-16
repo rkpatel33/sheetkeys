@@ -365,6 +365,8 @@ const Commands = {
     },
 
     // Paste additions
+    // RP TODO: Paste format is not working, even though paste values is working and uses the
+    // same mechanism. Need to investigate typKeys function
     pasteFormatOnly: {
       fn: SheetActions.pasteFormatOnly.bind(SheetActions),
       name: "Paste format",
@@ -529,6 +531,11 @@ const Commands = {
     },
 
     // Zoom
+    zoom125: {
+      fn: SheetActions.setZoom125.bind(SheetActions),
+      name: "Zoom 125%",
+      group: "zoom"
+    },
     zoom100: {
       fn: SheetActions.setZoom100.bind(SheetActions),
       name: "Zoom 100%",
@@ -612,8 +619,9 @@ const Commands = {
       "decimalDecrease": "m",
 
       // Rishi: Filtering
-      "fitlerOnActiveCell": "q",
-      "removeAllFilters": "Q",
+      // RP TODO: Need to fix this, use new debugging tools from philc
+      // "fitlerOnActiveCell": "q",
+      // "removeAllFilters": "Q",
 
       // Rishi: Tab navigation
       "prevTab": "[",
@@ -625,9 +633,10 @@ const Commands = {
       "alignRight": ";•d",
 
       // Rishi: Zoom
-      "zoom100": ";•0",
-      "zoom90": ";•9",
-      "zoom80": ";•8",
+      "zoom125": ";•z•number1",
+      "zoom100": ";•z•0",
+      "zoom90": ";•z•9",
+      "zoom80": ";•z•8",
 
       // Rishi: Background color
       "colorCellLightYellow": "c•y",
@@ -646,11 +655,11 @@ const Commands = {
       "colorCellFontColorDarkRed": ";•O",
 
       // Rishi: Borders
-      "borderTop": ";•b,t",
-      "borderBottom": ";•b,b",
-      "borderRight": ";•b,r",
-      "borderLeft": ";•b,l",
-      "borderClear": ";•b,c",
+      "borderBottom": ";•b•b",
+      "borderTop": ";•b•t",
+      "borderRight": ";•b•r",
+      "borderLeft": ";•b•l",
+      "borderClear": ";•b•c",
 
       // Rishi: UI controls
       "openCommandPalette": ":",
@@ -697,24 +706,28 @@ const Commands = {
       // Tabs
       "moveTabRight": ">•>",
       "moveTabLeft": "<•<",
-      "nextTab": "g•t",
-      "prevTab": "g•T",
-      "prevTab": "J",
-      "nextTab": "K",
+      // "nextTab": "g•t",
+      // RP NOTE: Only map command once in dict
+      // "prevTab": "g•T",
+      // "prevTab": "J",
+      // "nextTab": "K",
 
       // Formatting
       "wrap": ";•w•w",
       "overflow": ";•w•o",
       "clip": ";•w•c",
-      "alignLeft": ";•a•l",
-      "alignCenter": ";•a•c",
-      "alignRight": ";•a•r",
-      "colorCellWhite": ";•c•w",
-      "colorCellLightYellow3": ";•c•y",
-      "colorCellLightCornflowerBlue3": ";•c•b",
-      "colorCellLightPurple": ";•c•p",
-      "colorCellLightRed3": ";•c•r",
-      "colorCellLightGray2": ";•c•g",
+      // RP NOTE: Only map command once in dict
+      // "alignLeft": ";•a•l",
+      // "alignCenter": ";•a•c",
+      // "alignRight": ";•a•r",
+      // RP NOTE: Only map command once in dict
+      // "alignLeft": ";•a•l",
+      // "colorCellWhite": ";•c•w",
+      // "colorCellLightYellow3": ";•c•y",
+      // "colorCellLightCornflowerBlue3": ";•c•b",
+      // "colorCellLightPurple": ";•c•p",
+      // "colorCellLightRed3": ";•c•r",
+      // "colorCellLightGray2": ";•c•g",
       "fontSizeNormal": ";•f•n",
       "fontSizeLarge": ";•f•l",
       "fontSizeSmall": ";•f•s",
