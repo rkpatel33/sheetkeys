@@ -1,4 +1,5 @@
 const SheetActions = {
+
   // NOTE(philc): When developing, you can use this snippet to preview all available menu items:
   // Array.from(document.querySelectorAll(".goog-menuitem")).forEach((i) => console.log(i.innerText))
   menuItems: {
@@ -27,6 +28,7 @@ const SheetActions = {
     unmerge: "Unmerge",
     // /////////////////////////////////////////
     // Rishi: Custom 'Rishi' menu items
+    pasteFormulaOnly: "Formula only",
     numberDollar2: "$ $0.00",
     filterToggle: "Filter toggle",
     fitlerOnActiveCell: "Filter on active cell",
@@ -51,7 +53,6 @@ const SheetActions = {
     decimalDecrease: ["Decrease decimal places"],
     decimalIncrease: ["Increase decimal places"],
     deleteColumns: ["Delete", "Column"],
-    // pasteFormulaOnly: ["Paste special s", "Formula only"],
     // /////////////////////////////////////////
   },
 

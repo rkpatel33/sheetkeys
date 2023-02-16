@@ -340,7 +340,7 @@ const Commands = {
     },
 
     // /////////////////////////////////////////
-    // Rishi additions
+    // Rishi: command functions
 
     // Movement additions
     moveEndDown: {
@@ -408,6 +408,13 @@ const Commands = {
       fn: SheetActions.copyCellDownColumn.bind(SheetActions),
       name: "Copy cell down to bottom",
       group: "fill"
+    },
+
+    // Column deletion
+    deleteColumns: {
+      fn: SheetActions.deleteColumns.bind(SheetActions),
+      name: "Delete columns",
+      group: "editing"
     },
 
     // Filtering
@@ -586,7 +593,9 @@ const Commands = {
       "moveColumnsRight": "<C-L>",
 
       // Rishi: Deletion -- REVIST LATER, deletion without having column selected
-      // "deleteColumns": "d,d",
+      // RP TODO: This only works once you have clicked the Edit menu manually to create it.
+      // need to figure out how to click to create it programmatically.
+      "deleteColumns": "D•D",
 
       // Rishi: Paste special
       "pasteFormatOnly": "t",
