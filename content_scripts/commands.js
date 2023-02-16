@@ -580,11 +580,11 @@ const Commands = {
       // Rishi: Movement
       "moveEndRight": "e",
       "moveEndLeft": "b",
-
       "moveEndDown": "<M-j>",
       "moveEndUp": "<M-k>",
-      "moveEndRight": "<M-l>",
-      "moveEndLeft": "<M-h>",
+      // NOTE: You can't map a command to 2 different shortcuts, use this or `e` and `b`
+      // "moveEndRight": "<M-l>",
+      // "moveEndLeft": "<M-h>",
 
       // Row & column movement
       "moveRowsDown": "<C-J>",
@@ -601,12 +601,11 @@ const Commands = {
       "pasteFormatOnly": "t",
       "pasteFormulaOnly": "f",
       "pasteValuesOnly": "w",
-      "pasteFormatOnly": "<C-t>",
 
       // Rishi: Number formats
-      "numberFormatNumber2": ";•1",
-      "numberFormatDollar2": ";•4",
-      "numberFormatPercent2": ";•5",
+      "numberFormatNumber2": ";•number1",
+      "numberFormatDollar2": ";•number4",
+      "numberFormatPercent2": ";•number5",
       //
       // Rishi: Decimal increase/decrease
       "decimalIncrease": "n",
@@ -723,7 +722,8 @@ const Commands = {
       "freezeColumn": ";•f•c",
 
       // Misc
-      "showHelp": "?",
+      // RP TODO: For some reason the ? is not working for me but it is in upstream
+      // "showHelp": "?",
       "showHelp": "H",
       "toggleFullScreen": ";•w•f", // Mnemonic for "window full screen"
       // "openCellAsUrl": ";•o", -- Rishi: This is replaced with font color formatting
