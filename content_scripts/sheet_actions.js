@@ -387,10 +387,34 @@ const SheetActions = {
   // /////////////////////////////////////////
   // Rishi additions - move and select
   // Move to end in direction (cmd + arrow)
-  moveEndDown() { UI.typeKey(KeyboardUtils.keyCodes.downArrow, { meta: true }) },
-  moveEndUp() { UI.typeKey(KeyboardUtils.keyCodes.upArrow, { meta: true }) },
-  moveEndRight() { UI.typeKey(KeyboardUtils.keyCodes.rightArrow, { meta: true }) },
-  moveEndLeft() { UI.typeKey(KeyboardUtils.keyCodes.leftArrow, { meta: true }) },
+  moveEndDown() {
+    if (this.mode == "normal") {
+      UI.typeKey(KeyboardUtils.keyCodes.downArrow, { meta: true })
+    } else {
+      UI.typeKey(KeyboardUtils.keyCodes.downArrow, { shift: true, meta: true });
+    }
+  },
+  moveEndUp() {
+    if (this.mode == "normal") {
+      UI.typeKey(KeyboardUtils.keyCodes.upArrow, { meta: true })
+    } else {
+      UI.typeKey(KeyboardUtils.keyCodes.upArrow, { shift: true, meta: true });
+    }
+  },
+  moveEndRight() {
+    if (this.mode == "normal") {
+      UI.typeKey(KeyboardUtils.keyCodes.rightArrow, { meta: true })
+    } else {
+      UI.typeKey(KeyboardUtils.keyCodes.rightArrow, { shift: true, meta: true });
+    }
+  },
+  moveEndLeft() {
+    if (this.mode == "normal") {
+      UI.typeKey(KeyboardUtils.keyCodes.leftArrow, { meta: true })
+    } else {
+      UI.typeKey(KeyboardUtils.keyCodes.leftArrow, { shift: true, meta: true });
+    }
+  },
 
   // Move to end and select (cmd + shift + arrow)
   moveEndDownAndSelect() { UI.typeKey(KeyboardUtils.keyCodes.downArrow, { shift: true, meta: true }); },

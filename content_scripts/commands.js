@@ -408,8 +408,8 @@ const Commands = {
     // Copy down additions
     copyCellDownColumn: {
       fn: SheetActions.copyCellDownColumn.bind(SheetActions),
-      name: "Copy cell down to bottom",
-      group: "fill"
+      name: "Copy cell down to bottom (fill down)",
+      group: "editing"
     },
 
     // Column deletion
@@ -593,10 +593,13 @@ const Commands = {
       // "moveEndRight": "<M-l>",
       // "moveEndLeft": "<M-h>",
 
+      // Rishi: Fill
+      "copyCellDownColumn": "F",
+
       // Row & column movement
       "moveRowsDown": "<C-J>",
       "moveRowsUp": "<C-K>",
-      "moveColumnsLeft": "<C-H>",
+      // "moveColumnsLeft": "<C-H>", // RP NOTE: This conflicts with MacOS shortcut to hide window
       "moveColumnsRight": "<C-L>",
 
       // Rishi: Deletion -- REVIST LATER, deletion without having column selected
@@ -664,7 +667,7 @@ const Commands = {
       // Rishi: UI controls
       "openCommandPalette": ":",
       "openSearch": "slash",
-      "openTabsList": "T",
+      "openTabsList": "P",
 
       // Editing
       "editCell": "i",
