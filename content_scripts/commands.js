@@ -560,6 +560,10 @@ const Commands = {
 
   defaultMappings: {
     "normal": {
+      // Rishi: Copy pasting, better copying of cell
+      // "copy": "y",
+
+      //
       // Cursor movement
       "moveUp": "k",
       "moveDown": "j",
@@ -580,6 +584,71 @@ const Commands = {
       "moveRowsUp": "<C-K>",
       "moveColumnsLeft": "<C-H>",
       "moveColumnsRight": "<C-L>",
+
+      // Rishi: Deletion -- REVIST LATER, deletion without having column selected
+      // "deleteColumns": "d,d",
+
+      // Rishi: Paste special
+      "pasteFormatOnly": "t",
+      "pasteFormulaOnly": "f",
+      "pasteValuesOnly": "w",
+      "pasteFormatOnly": "<C-t>",
+
+      // Rishi: Number formats
+      "numberFormatNumber2": ";•1",
+      "numberFormatDollar2": ";•4",
+      "numberFormatPercent2": ";•5",
+      //
+      // Rishi: Decimal increase/decrease
+      "decimalIncrease": "n",
+      "decimalDecrease": "m",
+
+      // Rishi: Filtering
+      "fitlerOnActiveCell": "q",
+      "removeAllFilters": "Q",
+
+      // Rishi: Tab navigation
+      "prevTab": "[",
+      "nextTab": "]",
+
+      // Rishi: Alignment direct access
+      "alignLeft": ";•a",
+      "alignCenter": ";•s",
+      "alignRight": ";•d",
+
+      // Rishi: Zoom
+      "zoom100": ";•0",
+      "zoom90": ";•9",
+      "zoom80": ";•8",
+
+      // Rishi: Background color
+      "colorCellLightYellow": "c•y",
+      "colorCellWhite": "c•w",
+      "colorCellLightCornflowerBlue3": "c•b",
+      "colorCellLightPurple": "c•p",
+      "colorCellLightRed3": "c•r",
+      "colorCellLightGray2": "c•g",
+      "colorCellDarkGray1": "c•G",
+
+      // Rishi: Font color  
+      "colorCellFontColorBlue": ";•u",
+      "colorCellFontColorBlack": ";•i",
+      "colorCellFontColorRed": ";•o",
+      "colorCellLightYellow": ";•p", // This does background color
+      "colorCellFontColorDarkRed": ";•O",
+
+      // Rishi: Borders
+      "borderTop": ";•b,t",
+      "borderBottom": ";•b,b",
+      "borderRight": ";•b,r",
+      "borderLeft": ";•b,l",
+      "borderClear": ";•b,c",
+
+      // Rishi: UI controls
+      "openCommandPalette": ":",
+      "openSearch": "/",
+      "openTabsList": "P",
+      "openTabsList": "T",
 
       // Editing
       "editCell": "i",
@@ -648,7 +717,7 @@ const Commands = {
       "showHelp": "?",
       "showHelp": "H",
       "toggleFullScreen": ";•w•f", // Mnemonic for "window full screen"
-      "openCellAsUrl": ";•o",
+      // "openCellAsUrl": ";•o", -- Rishi: This is replaced with font color formatting
       // For some reason Cmd-r, which normally reloads the page, is disabled by Sheets.
       "reloadPage": "<M-r>",
       // Don't pass through ESC to the page in normal mode. If you hit ESC in normal mode, nothing should
