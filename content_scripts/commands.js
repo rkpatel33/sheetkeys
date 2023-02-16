@@ -663,8 +663,7 @@ const Commands = {
 
       // Rishi: UI controls
       "openCommandPalette": ":",
-      "openSearch": "/",
-      "openTabsList": "P",
+      "openSearch": "slash",
       "openTabsList": "T",
 
       // Editing
