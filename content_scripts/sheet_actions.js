@@ -216,7 +216,8 @@ const SheetActions = {
   clickMenu(itemCaption) { KeyboardUtils.simulateClick(this.getMenuItem(itemCaption)); },
 
   // /////////////////////////////////////////
-  // Rishi: added menu cliicking items for special menus
+
+  // Rishi: added menu clicking items for special menus
   clickRootMenuItem(rootMenuCaption, itemCaption) {
     console.log(`Clicking root menu item: ${rootMenuCaption} → ${itemCaption}`)
     // Manually get the top level menu to open to prevent the hanging modal
@@ -550,6 +551,44 @@ const SheetActions = {
   mergeCellsVertically() { this.clickMenu(this.menuItems.mergeVertically); },
   unmergeCells() { this.clickMenu(this.menuItems.unmerge); },
 
+  // Rishi: Filtering
+  filterToggle() {
+    // this.createRishiMenuSubMenu()
+    this.createAlbertMenuSubMenu()
+    this.clickMenu(this.menuItems.filterToggle);
+  },
+
+  fitlerOnActiveCell() {
+    // this.createRishiMenuSubMenu()
+    // this.createAlbertMenuSubMenu()
+    this.clickMenu(this.menuItems.fitlerOnActiveCell);
+  },
+
+  removeAllFilters() {
+    // this.createRishiMenuSubMenu()
+    // this.createAlbertMenuSubMenu()
+    this.clickMenu(this.menuItems.removeAllFilters);
+  },
+
+  // Rishi: Zoom
+  setZoom75() {
+    this.activateZoomMenu();
+    KeyboardUtils.simulateClick(this.getMenuItem("75%"));
+    console.log('Zoom 75%');
+  },
+
+  setZoom90() {
+    this.activateZoomMenu();
+    KeyboardUtils.simulateClick(this.getMenuItem("90%"));
+    console.log('Zoom 90%');
+  },
+
+  setZoom100() {
+    this.activateZoomMenu();
+    KeyboardUtils.simulateClick(this.getMenuItem("100%"));
+    console.log('Zoom 100%');
+  },
+
   //
   // Scrolling
   //
@@ -701,7 +740,12 @@ const SheetActions = {
   // /////////////////////////////////////////
   // Rishi 
 
-  // Borders
+  // Rishi: Cell background color
+  colorCellYellow() { this.changeCellColor(this.colors.yellow); },
+  colorCellLightBlue3() { this.changeCellColor(this.colors.lightBlue3); },
+  colorCellDarkGray1() { this.changeCellColor(this.colors.darkGray1); },
+
+  // Rishi: Borders
   borderTop() { this.clickToolbarButton(this.buttons.borderTop); },
   borderBottom() {
     this.clickBorderButton("Bottom border");
@@ -711,15 +755,32 @@ const SheetActions = {
   borderLeft() { this.clickToolbarButton(this.buttons.borderLeft); },
   borderClear() { this.clickToolbarButton(this.buttons.borderClear); },
 
-  // Decimal inc, dec
+  // Rishi: Decimal inc, dec
   decimalDecrease() { this.clickToolbarButton(this.buttons.decimalDecrease); },
   decimalIncrease() { this.clickToolbarButton(this.buttons.decimalIncrease); },
 
-  // Font color
+  // Rishi: Font color
   colorCellFontColorRed() { this.changeFontColor(this.colors.red); },
   colorCellFontColorDarkRed() { this.changeFontColor(this.colors.darkRed); },
   colorCellFontColorBlue() { this.changeFontColor(this.colors.blue); },
   colorCellFontColorBlack() { this.changeFontColor(this.colors.black); },
+
+  // Rishi: Number formats (built-ins, and attempt to hit menus
+  numberFormatNumber2() {
+    UI.typeKey(KeyboardUtils.keyCodes.number1, { shift: true, control: true });
+  },
+
+  numberFormatDollar2() {
+    UI.typeKey(KeyboardUtils.keyCodes.number4, { shift: true, control: true });
+    // this.clickMenu(this.menuItems.numberDollar2);
+  },
+
+  numberFormatPercent2() {
+    UI.typeKey(KeyboardUtils.keyCodes.number5, { shift: true, control: true });
+    // Rishi: Not sure what this is, seems like cruft
+    // this.activateMenu(this.menuItems.fontSizeMenu);
+    // KeyboardUtils.simulateClick(this.getMenuItem(/^10$/));
+  },
 
   // /////////////////////////////////////////
 

@@ -349,12 +349,12 @@ const Commands = {
       group: "movement"
     },
     moveEndUp: {
-      fn: SheetActions.moveEndUp.bind(SheetActions), name: "Reload page",
+      fn: SheetActions.moveEndUp.bind(SheetActions),
       name: "Move up to top",
       group: "movement"
     },
     moveEndRight: {
-      fn: SheetActions.moveEndRight.bind(SheetActions), name: "Reload page",
+      fn: SheetActions.moveEndRight.bind(SheetActions),
       name: "Move right to end",
       group: "movement"
     },
@@ -404,8 +404,8 @@ const Commands = {
     },
 
     // Copy down additions
-    copyEndDownAndCopy: {
-      fn: SheetActions.copyEndDownAndCopy.bind(SheetActions),
+    copyCellDownColumn: {
+      fn: SheetActions.copyCellDownColumn.bind(SheetActions),
       name: "Copy cell down to bottom",
       group: "fill"
     },
@@ -566,7 +566,14 @@ const Commands = {
       "moveLeft": "h",
       "moveRight": "l",
 
+      // Rishi: Movement
       "moveEndRight": "e",
+      "moveEndLeft": "b",
+
+      "moveEndDown": "<M-j>",
+      "moveEndUp": "<M-k>",
+      "moveEndRight": "<M-l>",
+      "moveEndLeft": "<M-h>",
 
       // Row & column movement
       "moveRowsDown": "<C-J>",
