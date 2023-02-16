@@ -196,6 +196,9 @@ const UI = {
         return;
       }
 
+      // Rishi: Debugging statement
+      // console.log("keySequence", keySequence);
+
       if (commandName = modeMappings[keySequence]) {
         this.keyQueue = [];
         this.cancelEvent(e);
@@ -206,6 +209,10 @@ const UI = {
 
   // modifiers: Optional; an object with these boolean properties: meta, alt, shift, control.
   typeKey(keyCode, modifiers) {
+    // Rishi: Print log
+    // var modifiers_str = JSON.stringify(modifiers) || "no modifiers";
+    // console.log(`Typing: ${keyCode} + ${modifiers_str}`);
+
     if (keyCode == null) { throw "The keyCode provided to typeKey() is null."; }
     this.ignoreKeys = true;
     if (!modifiers) { modifiers = {}; }
@@ -228,5 +235,6 @@ const UI = {
 // Don't initialize this Sheets UI if this code is being loaded from our extension's options page.
 if (window.document && !document.location.pathname.endsWith("harness.html"))
   UI.init();
+
 
 window.UI = UI;

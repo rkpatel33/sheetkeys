@@ -10,11 +10,11 @@
 const simulateKeyEvent = function(eventType, el, args) {
   // How to do this in Chrome: http://stackoverflow.com/q/10455626/46237
   const event = document.createEvent("KeyboardEvent");
-  Object.defineProperty(event, "keyCode", {get() { return this.keyCodeVal; }});
-  Object.defineProperty(event, "which", {get() { return this.keyCodeVal; }});
+  Object.defineProperty(event, "keyCode", { get() { return this.keyCodeVal; } });
+  Object.defineProperty(event, "which", { get() { return this.keyCodeVal; } });
   // eventName, canBubble, canceable, view, keyIdentifier string, ?, control, ?, shift, meta, keyCode, ?
   event.initKeyboardEvent(eventType, true, true, document.defaultView, "",
-    false, args.mods.control, null, args.mods.shift, args.mods.meta, args.keyCode, args.keyCode);
+    false, args.mods.control, args.mods.alt, args.mods.shift, args.mods.meta, args.keyCode, args.keyCode);
   event.keyCodeVal = args.keyCode;
   // console.log "Simulating keyboard event:", args.keyCode, args, event
   el.dispatchEvent(event);

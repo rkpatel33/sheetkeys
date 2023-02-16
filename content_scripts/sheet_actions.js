@@ -556,16 +556,17 @@ const SheetActions = {
 
   // Rishi: Add paste special functions
   pasteFormatOnly() {
-    console.log('paste format only!');
+    console.log('Paste format only');
     UI.typeKey(KeyboardUtils.keyCodes.v, { alt: true, meta: true });
   },
 
   pasteValuesOnly() {
-    console.log('Paste values only!');
+    console.log('Paste values only');
     UI.typeKey(KeyboardUtils.keyCodes.v, { shift: true, meta: true });
   },
 
   pasteFormulaOnly() {
+    console.log('Paste forumula only');
     this.activateMenu("Paste special►");
     this.clickMenu(this.menuItems.pasteFormulaOnly);
   },
