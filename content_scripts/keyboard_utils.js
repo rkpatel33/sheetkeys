@@ -16,7 +16,24 @@ const keyCodes = {
   down: 40,
   "delete": 46,
   f1: 112,
-  f12: 123
+  f12: 123,
+
+  // Rishi: Keycode additions
+  leftArrow: 37,
+  upArrow: 38,
+  rightArrow: 39,
+  downArrow: 40,
+  optionLeft: 18,
+  slash: 191,
+  c: 67,
+  d: 68,
+  e: 69,
+  f: 70,
+  t: 84,
+  v: 86,
+  number1: 49,
+  number4: 52,
+  number5: 53,
 };
 
 window.KeyboardUtils = {
@@ -92,9 +109,9 @@ window.KeyboardUtils = {
   createSimulatedKeyEvent(el, type, keyCode, keyIdentifier) {
     // How to do this in Chrome: http://stackoverflow.com/q/10455626/46237
     const event = document.createEvent("KeyboardEvent");
-    Object.defineProperty(event, "keyCode", {get() { return this.keyCodeVal; }});
-    Object.defineProperty(event, "which", {get() { return this.keyCodeVal; }});
-    Object.defineProperty(event, "keyIdentifier", {get() { return keyIdentifier; }});
+    Object.defineProperty(event, "keyCode", { get() { return this.keyCodeVal; } });
+    Object.defineProperty(event, "which", { get() { return this.keyCodeVal; } });
+    Object.defineProperty(event, "keyIdentifier", { get() { return keyIdentifier; } });
     event.initKeyboardEvent(type, true, true, document.defaultView, false, false, false, false, keyCode, 0);
     event.keyCodeVal = keyCode;
     event.keyIdentifier = keyIdentifier;
