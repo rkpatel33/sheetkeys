@@ -219,25 +219,35 @@ const SheetActions = {
   // /////////////////////////////////////////
 
   // Rishi: added menu clicking items for special menus
-  clickRootMenuItem(rootMenuCaption, itemCaption) {
-    console.log(`Clicking root menu item: ${rootMenuCaption} → ${itemCaption}`)
-    // Manually get the top level menu to open to prevent the hanging modal
-    const el = Array.from(document.querySelectorAll(".menu-button"))
-      .find(el => el.textContent === rootMenuCaption);
-    KeyboardUtils.simulateClick(el);
-    // Click the submenu buttons
-    this.clickMenu(itemCaption);
+
+  findMenuRootElement(menuName) {
+    const menuElement = Array.from(document.querySelectorAll(".menu-button"))
+      .find(el => el.textContent.includes(menuName));
+    return menuElement;
   },
 
-  createRishiMenuSubMenu() {
-    // NOTE: Must double click the Rishi menu the first time to create the submenu
-    KeyboardUtils.simulateClick(this.findMenuRootButton("Rishi"));
+  createCustomMenus() {
+    const rishiMenu = this.findMenuRootElement("Rishi");
+    const albertMenu = this.findMenuRootElement("Albert");
+    if (rishiMenu) {
+      KeyboardUtils.simulateClick(rishiMenu);
+      KeyboardUtils.simulateClick(rishiMenu);
+    }
+    if (albertMenu) {
+      KeyboardUtils.simulateClick(albertMenu);
+      KeyboardUtils.simulateClick(albertMenu);
+    }
   },
 
-  createAlbertMenuSubMenu() {
-    // NOTE: Must double click the Rishi menu the first time to create the submenu
-    KeyboardUtils.simulateClick(this.findMenuRootButton("Albert"));
+  clickMenuCustomItem(menuItemCaption) {
+    // Click on the menu item to open top level menu
+    const menuItemElement = Array.from(document.querySelectorAll(".goog-menuitem"))
+      .find(el => el.textContent.includes(menuItemCaption));
+    if (el) {
+      KeyboardUtils.simulateClick(menuItemElement);
+    }
   },
+
   // /////////////////////////////////////////
 
   deleteColumns() {
@@ -579,20 +589,29 @@ const SheetActions = {
 
   // Rishi: Filtering
   filterToggle() {
-    // this.createRishiMenuSubMenu()
-    this.createAlbertMenuSubMenu()
-    this.clickMenu(this.menuItems.filterToggle);
+    // Make sure custom menus are created
+    // RP TODO: this is a hack, button may not work first time bc of the delay in creating the menu
+    // Find a better way to do this.
+    this.createCustomMenus();
+
+    this.clickMenuCustomItem(this.menuItems.filterToggle)
   },
 
   fitlerOnActiveCell() {
-    // this.createRishiMenuSubMenu()
-    // this.createAlbertMenuSubMenu()
+    // Make sure custom menus are created
+    // RP TODO: this is a hack, button may not work first time bc of the delay in creating the menu
+    // Find a better way to do this.
+    this.createCustomMenus();
+
     this.clickMenu(this.menuItems.fitlerOnActiveCell);
   },
 
   removeAllFilters() {
-    // this.createRishiMenuSubMenu()
-    // this.createAlbertMenuSubMenu()
+    // Make sure custom menus are created
+    // RP TODO: this is a hack, button may not work first time bc of the delay in creating the menu
+    // Find a better way to do this.
+    this.createCustomMenus();
+
     this.clickMenu(this.menuItems.removeAllFilters);
   },
 
