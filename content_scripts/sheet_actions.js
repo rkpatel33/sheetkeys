@@ -12,12 +12,15 @@ const SheetActions = {
     rowAbove: /^Insert \d+ row above/,
     rowBelow: /^Insert \d+ row below/,
     fontSizeMenu: "Font size►",
+    alignmentMenu: "Alignment►",
     freezeRow: /Up to row \d+/, // This is a sub-item of the "Freeze" menu.
     freezeColumn: /Up to column [A-Z]+/, // This is a sub-item of the "Freeze" menu.
     moveRowUp: /Rows? up/,
     moveRowDown: /Rows? down/,
     moveColumnLeft: /Columns? left/,
     moveColumnRight: /Columns? right/,
+    alignTop: /.*Top/,
+      alignBottom: /.*Bottom/,
     paste: "Paste",
     undo: "Undo",
     redo: "Redo",
@@ -797,7 +800,16 @@ const SheetActions = {
   colorCellLightGray2() { this.changeCellColor(this.colors.lightGray2); },
 
   // /////////////////////////////////////////
-  // Rishi 
+  // Rishi
+
+  alignTop() {
+      this.activateMenu(this.menuItems.alignmentMenu);
+      this.clickMenu(this.menuItems.alignTop);
+    },
+    alignBottom() {
+      this.activateMenu(this.menuItems.alignmentMenu);
+      this.clickMenu(this.menuItems.alignBottom);
+    },
 
   // Rishi: Cell background color
   colorCellYellow() { this.changeCellColor(this.colors.yellow); },

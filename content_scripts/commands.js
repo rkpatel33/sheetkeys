@@ -240,6 +240,16 @@ const Commands = {
       name: "Align right",
       group: "formatting"
     },
+    alignTop: {
+        fn: SheetActions.alignTop.bind(SheetActions),
+        name: "Align top",
+        group: "formatting"
+      },
+      alignBottom: {
+        fn: SheetActions.alignBottom.bind(SheetActions),
+        name: "Align bottom",
+        group: "formatting"
+      },
     wrap: {
       fn: SheetActions.wrap.bind(SheetActions),
       name: "Wrap cell",
@@ -634,6 +644,8 @@ const Commands = {
       "alignLeft": ";•a",
       "alignCenter": ";•s",
       "alignRight": ";•d",
+      "alignTop": ";•a•t",
+      "alignBottom": ";•a•b",
 
       // Rishi: Zoom
       "zoom125": ";•z•number1",
