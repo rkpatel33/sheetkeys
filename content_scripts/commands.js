@@ -454,7 +454,7 @@ const Commands = {
       group: "cell color"
     },
 
-    // Font color 
+    // Font color
     colorCellFontColorRed: {
       fn: SheetActions.colorCellFontColorRed.bind(SheetActions),
       name: "Font red",
@@ -650,7 +650,7 @@ const Commands = {
       "colorCellLightGray2": "c•g",
       "colorCellDarkGray1": "c•G",
 
-      // Rishi: Font color  
+      // Rishi: Font color
       "colorCellFontColorBlue": ";•u",
       "colorCellFontColorBlack": ";•i",
       "colorCellFontColorRed": ";•o",
@@ -682,7 +682,6 @@ const Commands = {
       "deleteRowsOrColumns": "d•d",
       "clear": "x",
       "changeCell": "c•c",
-      "copyRowOrSelection": "y•y",
 
       // Merging cells
       "mergeAllCells": ";•m•a",
@@ -691,7 +690,8 @@ const Commands = {
       "mergeCellsVertically": ";•m•v",
 
       // "Yank cell"
-      "copy": "y•c",
+      "copy": "y",
+      "copyRowOrSelection": "Y",
       "paste": "p",
 
       // Selection
