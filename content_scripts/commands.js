@@ -633,7 +633,8 @@ const Commands = {
 
       // Rishi: Filtering
       // RP TODO: Need to fix this, use new debugging tools from philc
-      "fitlerOnActiveCell": "q",
+      // "fitlerOnActiveCell": "q",
+      "filterToggle": "q",
       "removeAllFilters": "Q",
 
       // Rishi: Tab navigation

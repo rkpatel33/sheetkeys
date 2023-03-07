@@ -597,7 +597,7 @@ const SheetActions = {
     // Find a better way to do this.
     this.createCustomMenus();
 
-    this.clickMenuCustomItem(this.menuItems.filterToggle)
+    this.clickMenu(this.menuItems.filterToggle)
   },
 
   fitlerOnActiveCell() {
