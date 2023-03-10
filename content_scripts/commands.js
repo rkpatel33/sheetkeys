@@ -358,7 +358,17 @@ const Commands = {
       name: "Move down to bottom",
       group: "movement"
     },
+    moveEndDown2: {
+      fn: SheetActions.moveEndDown.bind(SheetActions),
+      name: "Move down to bottom",
+      group: "movement"
+    },
     moveEndUp: {
+      fn: SheetActions.moveEndUp.bind(SheetActions),
+      name: "Move up to top",
+      group: "movement"
+    },
+    moveEndUp2: {
       fn: SheetActions.moveEndUp.bind(SheetActions),
       name: "Move up to top",
       group: "movement"
@@ -599,6 +609,8 @@ const Commands = {
       "moveEndLeft": "b",
       "moveEndDown": "<M-j>",
       "moveEndUp": "<M-k>",
+      "moveEndDown2": "E",
+      "moveEndUp2": "B",
       // NOTE: You can't map a command to 2 different shortcuts, use this or `e` and `b`
       // "moveEndRight": "<M-l>",
       // "moveEndLeft": "<M-h>",
