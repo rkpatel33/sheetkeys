@@ -241,15 +241,15 @@ const Commands = {
       group: "formatting"
     },
     alignTop: {
-        fn: SheetActions.alignTop.bind(SheetActions),
-        name: "Align top",
-        group: "formatting"
-      },
-      alignBottom: {
-        fn: SheetActions.alignBottom.bind(SheetActions),
-        name: "Align bottom",
-        group: "formatting"
-      },
+      fn: SheetActions.alignTop.bind(SheetActions),
+      name: "Align top",
+      group: "formatting"
+    },
+    alignBottom: {
+      fn: SheetActions.alignBottom.bind(SheetActions),
+      name: "Align bottom",
+      group: "formatting"
+    },
     wrap: {
       fn: SheetActions.wrap.bind(SheetActions),
       name: "Wrap cell",
@@ -422,6 +422,27 @@ const Commands = {
     moveEndRightAndSelect: {
       fn: SheetActions.moveEndRightAndSelect.bind(SheetActions),
       name: "Select right to end",
+      group: "selection"
+    },
+
+    moveDownAndSelect: {
+      fn: SheetActions.moveDownAndSelect.bind(SheetActions),
+      name: "Select down",
+      group: "selection"
+    },
+    moveUpAndSelect: {
+      fn: SheetActions.moveUpAndSelect.bind(SheetActions),
+      name: "Select up",
+      group: "selection"
+    },
+    moveRightAndSelect: {
+      fn: SheetActions.moveRightAndSelect.bind(SheetActions),
+      name: "Select right",
+      group: "selection"
+    },
+    moveLeftAndSelect: {
+      fn: SheetActions.moveLeftAndSelect.bind(SheetActions),
+      name: "Select left",
       group: "selection"
     },
 
@@ -611,6 +632,13 @@ const Commands = {
       "moveEndUp": "<M-k>",
       "moveEndDown2": "E",
       "moveEndUp2": "B",
+
+
+      "moveDownAndSelect": "J",
+      "moveUpAndSelect": "K",
+      "moveRightAndSelect": "L",
+      "moveLeftAndSelect": "H",
+
       // NOTE: You can't map a command to 2 different shortcuts, use this or `e` and `b`
       // "moveEndRight": "<M-l>",
       // "moveEndLeft": "<M-h>",
@@ -764,7 +792,7 @@ const Commands = {
       // Misc
       // RP TODO: For some reason the ? is not working for me but it is in upstream
       // "showHelp": "?",
-      "showHelp": "H",
+      "showHelp": ";•h",
       "toggleFullScreen": ";•w•f", // Mnemonic for "window full screen"
       // "openCellAsUrl": ";•o", -- Rishi: This is replaced with font color formatting
       // For some reason Cmd-r, which normally reloads the page, is disabled by Sheets.

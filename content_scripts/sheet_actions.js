@@ -20,7 +20,7 @@ const SheetActions = {
     moveColumnLeft: /Columns? left/,
     moveColumnRight: /Columns? right/,
     alignTop: /.*Top/,
-      alignBottom: /.*Bottom/,
+    alignBottom: /.*Bottom/,
     paste: "Paste",
     undo: "Undo",
     redo: "Redo",
@@ -435,6 +435,11 @@ const SheetActions = {
   moveEndLeftAndSelect() { UI.typeKey(KeyboardUtils.keyCodes.leftArrow, { shift: true, meta: true }); },
   moveEndRightAndSelect() { UI.typeKey(KeyboardUtils.keyCodes.rightArrow, { shift: true, meta: true }); },
 
+  moveDownAndSelect() { UI.typeKey(KeyboardUtils.keyCodes.downArrow, { shift: true, meta: false }); },
+  moveUpAndSelect() { UI.typeKey(KeyboardUtils.keyCodes.upArrow, { shift: true, meta: false }); },
+  moveRightAndSelect() { UI.typeKey(KeyboardUtils.keyCodes.rightArrow, { shift: true, meta: false }); },
+  moveLeftAndSelect() { UI.typeKey(KeyboardUtils.keyCodes.leftArrow, { shift: true, meta: false }); },
+
   // Copy down a column (cmd + shift + down -> cmd + d)
   copyCellDownColumn() {
     UI.typeKey(KeyboardUtils.keyCodes.downArrow, { shift: true, meta: true });
@@ -803,13 +808,13 @@ const SheetActions = {
   // Rishi
 
   alignTop() {
-      this.activateMenu(this.menuItems.alignmentMenu);
-      this.clickMenu(this.menuItems.alignTop);
-    },
-    alignBottom() {
-      this.activateMenu(this.menuItems.alignmentMenu);
-      this.clickMenu(this.menuItems.alignBottom);
-    },
+    this.activateMenu(this.menuItems.alignmentMenu);
+    this.clickMenu(this.menuItems.alignTop);
+  },
+  alignBottom() {
+    this.activateMenu(this.menuItems.alignmentMenu);
+    this.clickMenu(this.menuItems.alignBottom);
+  },
 
   // Rishi: Cell background color
   colorCellYellow() { this.changeCellColor(this.colors.yellow); },
