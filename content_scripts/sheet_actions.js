@@ -40,10 +40,12 @@ const SheetActions = {
   },
 
   buttons: {
+    // Alignment
     center: ["Horizontal align", "Center"],
-    clip: ["Text wrapping", "Clip"],
     left: ["Horizontal align", "Left"],
     right: ["Horizontal align", "Right"],
+    // Wrapping
+    clip: ["Text wrapping", "Clip"],
     overflow: ["Text wrapping", "Overflow"],
     wrap: ["Text wrapping", "Wrap"],
     // /////////////////////////////////////////
@@ -469,7 +471,7 @@ const SheetActions = {
 
   openTabsList() {
     console.log('Opening tabs list')
-    var el = document.querySelectorAll(".docs-sheet-all").item(0)
+    var el = document.querySelectorAll(".docs-sheet-all-button").item(0)
     KeyboardUtils.simulateClick(el);
   },
   // /////////////////////////////////////////
