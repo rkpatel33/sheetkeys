@@ -16,7 +16,7 @@ const simulateKeyEvent = function(eventType, el, args) {
   event.initKeyboardEvent(eventType, true, true, document.defaultView, "",
     false, args.mods.control, args.mods.alt, args.mods.shift, args.mods.meta, args.keyCode, args.keyCode);
   event.keyCodeVal = args.keyCode;
-  // console.log "Simulating keyboard event:", args.keyCode, args, event
+  // console.log("Simulating keyboard event:", args.keyCode, args);
   el.dispatchEvent(event);
 };
 

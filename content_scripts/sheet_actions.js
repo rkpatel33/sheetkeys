@@ -148,6 +148,7 @@ const SheetActions = {
   clickToolbarButton(captionList) {
     // Sometimes a toolbar button won't exist in the DOM until its parent has been clicked, so we click all of
     // its parents in sequence.
+    console.log(`Clicking toolbar button ${captionList}`);
     for (let caption of Array.from(captionList)) {
       const el = document.querySelector(`*[aria-label='${caption}']`);
       if (!el) {
@@ -453,7 +454,7 @@ const SheetActions = {
   // UI control
   //
   openCommandPalette() {
-    var el = document.querySelector(`*[placeholder='Search the menus (Option+/)']`);
+    var el = document.querySelector('.docs-omnibox-input');
     KeyboardUtils.simulateClick(el);
   },
 
