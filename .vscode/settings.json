@@ -1,0 +1,6 @@
+{
+    "[javascript]": {
+        "editor.tabSize": 4,
+        "editor.indentSize": 4
+    }
+}
