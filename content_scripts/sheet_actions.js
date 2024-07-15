@@ -30,6 +30,7 @@ const SheetActions = {
         unmerge: "Unmerge",
         // /////////////////////////////////////////
         // Rishi: Custom 'Rishi' menu items
+        pasteValuesOnly: "Values only",
         pasteFormulaOnly: "Formula only",
         numberDollar2: "$ $0.00",
         filterToggle: "Filter toggle",
@@ -671,16 +672,21 @@ const SheetActions = {
     // Rishi: Add paste special functions
     pasteFormatOnly() {
         console.log("Paste format only");
-        UI.typeKey(KeyboardUtils.keyCodes.v, { alt: true, meta: true });
+        UI.typeKey(KeyboardUtils.keyCodes.v, { meta: true, alt: true });
     },
 
     pasteValuesOnly() {
         console.log("Paste values only");
-        UI.typeKey(KeyboardUtils.keyCodes.v, { shift: true, meta: true });
+
+        // NOTE: This not not working for some reason, use menu directly
+        // UI.typeKey(KeyboardUtils.keyCodes.v, { meta: true, shift: true });
+
+        this.activateMenu("Paste special►");
+        this.clickMenu(this.menuItems.pasteValuesOnly);
     },
 
     pasteFormulaOnly() {
-        console.log("Paste forumula only");
+        console.log("Paste formula only");
         this.activateMenu("Paste special►");
         this.clickMenu(this.menuItems.pasteFormulaOnly);
     },
