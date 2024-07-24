@@ -378,7 +378,17 @@ const Commands = {
             name: "Move right to end",
             group: "movement",
         },
+        moveEndRight2: {
+            fn: SheetActions.moveEndRight.bind(SheetActions),
+            name: "Move right to end",
+            group: "movement",
+        },
         moveEndLeft: {
+            fn: SheetActions.moveEndLeft.bind(SheetActions),
+            name: "Move left to start",
+            group: "movement",
+        },
+        moveEndLeft2: {
             fn: SheetActions.moveEndLeft.bind(SheetActions),
             name: "Move left to start",
             group: "movement",
@@ -626,12 +636,21 @@ const Commands = {
             moveRight: "l",
 
             // Rishi: Movement
-            moveEndRight: "e",
-            moveEndLeft: "b",
-            moveEndDown: "<M-j>",
-            moveEndUp: "<M-k>",
+            moveEndRight2: "e",
+            moveEndLeft2: "b",
             moveEndDown2: "E",
             moveEndUp2: "B",
+            // Alt mappings
+            moveEndDown: "<A-j>",
+            moveEndUp: "<A-k>",
+            moveEndRight: "<A-l>",
+            moveEndLeft: "<A-h>",
+
+            // Row & column movement
+            // moveRowsDown: "<A-j>",
+            // moveRowsUp: "<A-k>",
+            // moveColumnsLeft: "<A-h>",
+            // moveColumnsRight: "<A-l>",
 
             moveDownAndSelect: "J",
             moveUpAndSelect: "K",
@@ -644,12 +663,6 @@ const Commands = {
 
             // Rishi: Fill
             copyCellDownColumn: "F",
-
-            // Row & column movement
-            moveRowsDown: "<C-J>",
-            moveRowsUp: "<C-K>",
-            // "moveColumnsLeft": "<C-H>", // RP NOTE: This conflicts with MacOS shortcut to hide window
-            moveColumnsRight: "<C-L>",
 
             // Rishi: Deletion -- REVIST LATER, deletion without having column selected
             // RP TODO: This only works once you have clicked the Edit menu manually to create it.
