@@ -163,6 +163,7 @@ window.KeyboardUtils = {
     },
 
     simulateClick(el, x, y) {
+        console.log("Simulating click on", el.innerText, x, y);
         if (x == null) {
             x = 0;
         }

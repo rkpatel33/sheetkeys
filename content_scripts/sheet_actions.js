@@ -2,33 +2,41 @@ const SheetActions = {
     // NOTE(philc): When developing, you can use this snippet to preview all available menu items:
     // Array.from(document.querySelectorAll(".goog-menuitem")).forEach((i) => console.log(i.innerText))
     menuItems: {
-        copy: "Copy",
-        // This string with a space at the end is meant to match the button "Row X(D)" where X is some number.
-        // When multiple rows are selected, the capture is "Rows X(D)".
-        deleteRow: /^Row[s]? \d+\(D\)/,
-        deleteColumn: /^Column[s]? (?!stats)/, // Avoid matching the menu item "Column stats".
-        deleteValues: "Values",
-        rowAbove: /^Insert \d+ row above/,
-        rowBelow: /^Insert \d+ row below/,
-        fontSizeMenu: "Font size►",
-        alignmentMenu: "Alignment►",
-        freezeRow: /Up to row \d+/, // This is a sub-item of the "Freeze" menu.
-        freezeColumn: /Up to column [A-Z]+/, // This is a sub-item of the "Freeze" menu.
-        moveRowUp: /Rows? up/,
-        moveRowDown: /Rows? down/,
-        moveColumnLeft: /Columns? left/,
-        moveColumnRight: /Columns? right/,
-        alignTop: /.*Top/,
-        alignBottom: /.*Bottom/,
-        paste: "Paste",
-        undo: "Undo",
-        redo: "Redo",
-        fullScreen: "Full screen",
-        mergeAll: "Merge all",
-        mergeHorizontally: "Merge horizontally",
-        mergeVertically: "Merge vertically",
-        unmerge: "Unmerge",
-        // /////////////////////////////////////////
+        copy: { parent: "Edit", caption: "Copy" },
+        delete: { parent: "Edit", caption: "Delete►" },
+        // Avoid matching the menu item "Column stats".
+        deleteColumn: { parent: "Edit", caption: /^Column[s]? (?!stats)/ },
+        // This string with a space at the end is meant to match the button "Row X(D)" where X is some
+        // number. When multiple rows are selected, the capture is "Rows X(D)".
+        deleteRow: { parent: "Edit", caption: /^Row[s]? \d+\(D\)/ },
+        deleteValues: { parent: "Edit", caption: "Values" },
+        fontSize8: { parent: "Format", caption: /^8$/ },
+        fontSize10: { parent: "Format", caption: /^10$/ },
+        fontSize12: { parent: "Format", caption: /^12$/ },
+        fontSizeMenu: { parent: "Format", caption: "Font size►" },
+        freeze: { parent: "View", caption: "Freeze►" },
+        // This is a sub-item of the "Freeze" menu.
+        freezeRow: { parent: "View", caption: /Up to row \d+/ },
+        // This is a sub-item of the "Freeze" menu.
+        freezeColumn: { parent: "View", caption: /Up to column [A-Z]+/ },
+        fullScreen: { parent: "View", caption: "Full screen" },
+        mergeAll: { parent: "Format", caption: "Merge all" },
+        mergeHorizontally: { parent: "Format", caption: "Merge horizontally" },
+        mergeVertically: { parent: "Format", caption: "Merge vertically" },
+        move: { parent: "Edit", caption: "Move►" },
+        moveRowUp: { parent: "Edit", caption: /Rows? up/ },
+        moveRowDown: { parent: "Edit", caption: /Rows? down/ },
+        moveColumnLeft: { parent: "Edit", caption: /Columns? left/ },
+        moveColumnRight: { parent: "Edit", caption: /Columns? right/ },
+        paste: { parent: "Edit", caption: "Paste" },
+        redo: { parent: "Edit", caption: "Redo" },
+        rowAbove: { parent: "Insert", caption: /^Insert \d+ row above/ },
+        rowBelow: { parent: "Insert", caption: /^Insert \d+ row below/ },
+        rows: { parent: "Insert", caption: "Rows►" },
+        undo: { parent: "Edit", caption: "Undo" },
+        unmerge: { parent: "Format", caption: "Unmerge" },
+
+        // **************************************
         // Rishi: Custom 'Rishi' menu items
         pasteValuesOnly: "Values only",
         pasteFormulaOnly: "Formula only",
@@ -36,7 +44,7 @@ const SheetActions = {
         filterToggle: "Filter toggle",
         fitlerOnActiveCell: "Filter on active cell",
         removeAllFilters: "Remove all filters",
-        // /////////////////////////////////////////
+        // **************************************
     },
 
     buttons: {
@@ -169,38 +177,41 @@ const SheetActions = {
         }
     },
 
-    // Returns the DOM element of the menu item with the given caption. Prints a warning if a menu item isn't
-    // found (since this is a common source of errors in SheetKeys) unless silenceWarning = true.
-    getMenuItem(caption, silenceWarning) {
-        if (silenceWarning == null) {
-            silenceWarning = false;
-        }
-        let item = this.menuItemElements[caption];
-        if (item) {
-            return item;
-        }
-        item = this.findMenuItem(caption);
-        if (!item) {
-            if (!silenceWarning) {
-                console.log(
-                    `Error: could not find menu item with caption ${caption}`
-                );
-            }
+    // Returns the DOM element of the menu item with the given caption. Prints a warning if a menu
+    // item isn't found (since this is a common source of errors in SheetKeys) unless silenceWarning
+    // is true.
+    getMenuItem(menuItem, silenceWarning) {
+        console.log("Getting menu item", menuItem, silenceWarning);
+        if (silenceWarning == null) silenceWarning = false;
+        const caption = menuItem.caption;
+        let el = this.menuItemElements[caption];
+        if (el) return el;
+        el = this.findMenuItem(menuItem);
+        if (!el) {
+            if (!silenceWarning)
+                console.error("Could not find menu item with caption", caption);
             return null;
         }
-        return (this.menuItemElements[caption] = item);
+        return (this.menuItemElements[caption] = el);
     },
 
-    findMenuItem(caption) {
-        const menuItems = document.querySelectorAll(".goog-menuitem");
+    findMenuItem(menuItem) {
+        // Click on the top-level parent so its submenus get instantiated.
+        this.activateTopLevelMenu(menuItem.parent);
+        const menuItemEls = document.querySelectorAll(".goog-menuitem");
+        const caption = menuItem.caption;
         const isRegexp = caption instanceof RegExp;
-        for (let menuItem of Array.from(menuItems)) {
-            const label = menuItem.innerText;
+        for (const el of Array.from(menuItemEls)) {
+            const label = el.innerText;
             if (!label) continue;
             if (isRegexp) {
-                if (caption.test(label)) return menuItem;
+                if (caption.test(label)) {
+                    return el;
+                }
             } else {
-                if (label.indexOf(caption) === 0) return menuItem;
+                if (label.startsWith(caption)) {
+                    return el;
+                }
             }
         }
         return null;
@@ -291,10 +302,12 @@ const SheetActions = {
     },
 
     deleteRowsOrColumns() {
-        this.activateMenu("Delete►");
-        if (this.mode == "visualColumn")
+        this.activateMenu(this.menuItems.delete);
+        if (this.mode == "visualColumn") {
             this.clickMenu(this.menuItems.deleteColumn);
-        else this.clickMenu(this.menuItems.deleteRow);
+        } else {
+            this.clickMenu(this.menuItems.deleteRow);
+        }
 
         // Clear any row-level selections we might've had.
         this.unselectRow();
@@ -406,7 +419,7 @@ const SheetActions = {
             this.preserveSelectedColumn();
         }
         this.selectRow(); // A row has to be selected before the "Move>" menu becomes enabled.
-        this.activateMenu("Move►");
+        this.activateMenu(this.menuItems.move);
         this.clickMenu(this.menuItems.moveRowUp);
         if (this.mode == "normal") {
             SheetActions.unselectRow();
@@ -419,7 +432,7 @@ const SheetActions = {
             this.preserveSelectedColumn();
         }
         this.selectRow();
-        this.activateMenu("Move►");
+        this.activateMenu(this.menuItems.move);
         this.clickMenu(this.menuItems.moveRowDown);
         if (this.mode == "normal") {
             SheetActions.unselectRow();
@@ -429,13 +442,13 @@ const SheetActions = {
 
     moveColumnsLeft() {
         this.selectColumn();
-        this.activateMenu("Move►");
+        this.activateMenu(this.menuItems.move);
         this.clickMenu(this.menuItems.moveColumnLeft);
     },
 
     moveColumnsRight() {
         this.selectColumn();
-        this.activateMenu("Move►");
+        this.activateMenu(this.menuItems.move);
         this.clickMenu(this.menuItems.moveColumnRight);
     },
 
@@ -578,29 +591,31 @@ const SheetActions = {
     },
 
     clear() {
-        this.activateMenu("Delete►");
+        this.activateMenu(this.menuItems.delete);
         this.clickMenu(this.menuItems.deleteValues);
     },
 
     // Creates a row below and begins editing it.
     openRowBelow() {
-        this.insertRowBelow();
+        this.activateMenu(this.menuItems.rows);
+        this.clickMenu(this.menuItems.rowBelow);
         this.typeKeyFn(KeyboardUtils.keyCodes.enter);
     },
 
     openRowAbove() {
-        this.insertRowAbove();
+        this.activateMenu(this.menuItems.rows);
+        this.clickMenu(this.menuItems.rowAbove);
         this.typeKeyFn(KeyboardUtils.keyCodes.enter);
     },
 
     // Like openRowBelow, but does not enter insert mode.
     insertRowBelow() {
-        this.activateMenu("Rows►");
+        this.activateMenu(this.menuItems.rows);
         this.clickMenu(this.menuItems.rowBelow);
     },
 
     insertRowAbove() {
-        this.activateMenu("Rows►");
+        this.activateMenu(this.menuItems.rows);
         this.clickMenu(this.menuItems.rowAbove);
     },
 
@@ -880,21 +895,43 @@ const SheetActions = {
         KeyboardUtils.simulateClick(result);
     },
 
-    // Shows and then hides a submenu in the File menu system. This triggers creation of the buttons in that
-    // submenu, so they can be clicked.
-    activateMenu(menuCaption) {
-        const menuButton = this.getMenuItem(menuCaption);
-        KeyboardUtils.simulateClick(menuButton);
-        // Once the submenu is shown, it can only be hidden by modifying its style attribute.
-        // It's not possible to identify and find the specific submenu DOM element that was created and shown as a
-        // result of clicking on the menuButton, so we brute force hide all menus.
+    // Activates a top-level menu in the doc, e.g. File, Edit, View.
+    activateTopLevelMenu(menuCaption) {
+        if (menuCaption == null) {
+            throw new Error("activateTopLevelMenu menuCaption can't be null.");
+        }
+        const buttons = Array.from(document.querySelectorAll(".menu-button"));
+        const button = buttons.find((el) => el.innerText.trim() == menuCaption);
+        if (!button) {
+            throw new Error(
+                `Couldn't find top-level button with caption ${menuCaption}`
+            );
+        }
+        // Unlike submenus, top-level menus can be hidden by clicking the button a second time to
+        // dismiss the menu.
+        KeyboardUtils.simulateClick(button);
+        KeyboardUtils.simulateClick(button);
+    },
+
+    // Shows and then hides a submenu in the File menu system. This triggers creation of the buttons
+    // in that submenu, so they can be clicked.
+    activateMenu(menuItem) {
+        console.log("Activating menu", menuItem);
+        const el = this.getMenuItem(menuItem);
+        KeyboardUtils.simulateClick(el);
+        // Once a submenu is shown, it can only be hidden by modifying its style attribute. It's not
+        // possible to identify and find the specific submenu DOM element that was created and shown as
+        // a result of clicking on the menuButton, so we brute force hide all menus.
         const menus = Array.from(document.querySelectorAll(".goog-menu"));
-        for (const m of menus) m.style.display = "none";
+        for (const m of menus) {
+            m.style.display = "none";
+        }
     },
 
     // Shows and then hides the tab menu for the currently selected tab.
     // This has the side effect of forcing Sheets to create the menu DOM element if it hasn't yet been created.
     activateTabMenu() {
+        console.log("Activating tab menu");
         const menuButton = document.querySelector(
             ".docs-sheet-active-tab .docs-icon-arrow-dropdown"
         );
@@ -907,11 +944,11 @@ const SheetActions = {
     // Formatting
     //
 
-    // NOTE(philc): I couldn't reliably detect the selected font size for the current cell, and so I couldn't
-    // implement increaes font / decrease font commands.
+    // NOTE(philc): I couldn't reliably detect the selected font size for the current cell, and so I
+    // couldn't implement increase font / decrease font commands.
     // TODO(philc): I believe this is now possible. It's held in #docs-font-size.
     getFontSizeMenu() {
-        return this.getMenuItem("6").parentNode;
+        // return this.getMenuItem("6").parentNode;
     },
 
     setFontSize8() {
