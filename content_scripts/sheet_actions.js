@@ -35,6 +35,11 @@ const SheetActions = {
         rows: { parent: "Insert", caption: "Rows►" },
         undo: { parent: "Edit", caption: "Undo" },
         unmerge: { parent: "Format", caption: "Unmerge" },
+        zoom: { parent: "View", caption: "Zoom►" },
+        zoom75: { parent: "View", caption: "75%" },
+        zoom90: { parent: "View", caption: "90%" },
+        zoom100: { parent: "View", caption: "100%" },
+        zoom125: { parent: "View", caption: "125%" },
 
         // **************************************
         // Rishi: Custom 'Rishi' menu items
@@ -177,11 +182,19 @@ const SheetActions = {
         }
     },
 
-    // Returns the DOM element of the menu item with the given caption. Prints a warning if a menu
-    // item isn't found (since this is a common source of errors in SheetKeys) unless silenceWarning
-    // is true.
+    /**
+     * Returns the DOM element of the menu item with the given caption. Prints a warning if a menu
+     * item isn't found (since this is a common source of errors in SheetKeys) unless silenceWarning
+     * is true.
+     * @param {Object} menuItem
+     * @param {string} menuItem.parent - The parent of the menu item.
+     * @param {string} menuItem.caption - The caption of the menu item.
+     * @param {boolean} silenceWarning
+     * @returns
+     */
     getMenuItem(menuItem, silenceWarning) {
         console.log("Getting menu item", menuItem, silenceWarning);
+
         if (silenceWarning == null) silenceWarning = false;
         const caption = menuItem.caption;
         let el = this.menuItemElements[caption];
@@ -195,6 +208,13 @@ const SheetActions = {
         return (this.menuItemElements[caption] = el);
     },
 
+    /**
+     * Search through menu elements to find the one with the given caption. Prints a warning if a menu
+     * @param {Object} menuItem
+     * @param {string} menuItem.parent - The parent of the menu item.
+     * @param {string} menuItem.caption - The caption of the menu item.
+     * @returns element
+     */
     findMenuItem(menuItem) {
         // Click on the top-level parent so its submenus get instantiated.
         this.activateTopLevelMenu(menuItem.parent);
@@ -202,14 +222,28 @@ const SheetActions = {
         const caption = menuItem.caption;
         const isRegexp = caption instanceof RegExp;
         for (const el of Array.from(menuItemEls)) {
-            const label = el.innerText;
-            if (!label) continue;
+            const elementLabel = el.innerText;
+            if (!elementLabel) continue;
+
+            // DEBUG
+            console.log("Element label", elementLabel);
+
             if (isRegexp) {
-                if (caption.test(label)) {
+                if (caption.test(elementLabel)) {
+                    console.log(
+                        "Found menu item with caption",
+                        caption,
+                        elementLabel
+                    );
                     return el;
                 }
             } else {
-                if (label.startsWith(caption)) {
+                if (elementLabel.startsWith(caption)) {
+                    console.log(
+                        "Found menu item with caption",
+                        caption,
+                        elementLabel
+                    );
                     return el;
                 }
             }
@@ -760,27 +794,23 @@ const SheetActions = {
     },
 
     setZoom75() {
-        this.activateZoomMenu();
-        KeyboardUtils.simulateClick(this.getMenuItem("75%"));
-        console.log("Zoom 75%");
+        this.activateMenu(this.menuItems.zoom);
+        this.clickMenu(this.menuItems.zoom75);
     },
 
     setZoom90() {
-        this.activateZoomMenu();
-        KeyboardUtils.simulateClick(this.getMenuItem("90%"));
-        console.log("Zoom 90%");
+        this.activateMenu(this.menuItems.zoom);
+        this.clickMenu(this.menuItems.zoom90);
     },
 
     setZoom100() {
-        this.activateZoomMenu();
-        KeyboardUtils.simulateClick(this.getMenuItem("100%"));
-        console.log("Zoom 100%");
+        this.activateMenu(this.menuItems.zoom);
+        this.clickMenu(this.menuItems.zoom100);
     },
 
     setZoom125() {
-        this.activateZoomMenu();
-        KeyboardUtils.simulateClick(this.getMenuItem("125%"));
-        console.log("Zoom 125%");
+        this.activateMenu(this.menuItems.zoom);
+        this.clickMenu(this.menuItems.zoom125);
     },
 
     //
