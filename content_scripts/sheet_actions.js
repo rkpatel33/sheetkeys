@@ -43,8 +43,9 @@ const SheetActions = {
 
         // **************************************
         // Rishi: Custom 'Rishi' menu items
-        pasteValuesOnly: "Values only",
-        pasteFormulaOnly: "Formula only",
+        pastSpecialSubmenu: { parent: "Edit", caption: "Paste special►" },
+        pasteValuesOnly: { parent: "Edit", caption: "Values only" },
+        pasteFormulaOnly: { parent: "Edit", caption: "Formula only" },
         numberDollar2: "$ $0.00",
         filterToggle: "Filter toggle",
         fitlerOnActiveCell: "Filter on active cell",
@@ -718,25 +719,28 @@ const SheetActions = {
         this.unselectRow();
     },
 
-    // Rishi: Add paste special functions
+    // ***** Rishi: Add paste special functions *****
+
     pasteFormatOnly() {
         console.log("Paste format only");
-        UI.typeKey(KeyboardUtils.keyCodes.v, { meta: true, alt: true });
+        this.activateMenu(this.menuItems.pastSpecialSubmenu);
+        this.clickMenu(this.menuItems.pasteValuesOnly);
+        // Fallback if above doesn't work
+        // UI.typeKey(KeyboardUtils.keyCodes.v, { meta: true, alt: true });
     },
 
     pasteValuesOnly() {
         console.log("Paste values only");
+        this.activateMenu(this.menuItems.pastSpecialSubmenu);
+        this.clickMenu(this.menuItems.pasteValuesOnly);
 
         // NOTE: This not not working for some reason, use menu directly
         // UI.typeKey(KeyboardUtils.keyCodes.v, { meta: true, shift: true });
-
-        this.activateMenu("Paste special►");
-        this.clickMenu(this.menuItems.pasteValuesOnly);
     },
 
     pasteFormulaOnly() {
         console.log("Paste formula only");
-        this.activateMenu("Paste special►");
+        this.activateMenu(this.menuItems.pastSpecialSubmenu);
         this.clickMenu(this.menuItems.pasteFormulaOnly);
     },
 
