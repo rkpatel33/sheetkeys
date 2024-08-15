@@ -47,10 +47,25 @@ const SheetActions = {
         pasteValuesOnly: { parent: "Edit", caption: "Values only" },
         pasteFormulaOnly: { parent: "Edit", caption: "Formula only" },
         numberDollar2: "$ $0.00",
-        filterToggle: "Filter toggle",
-        fitlerOnActiveCell: "Filter on active cell",
-        removeAllFilters: "Remove all filters",
+
         // **************************************
+        albertMenu: { parent: "🔵 Albert", caption: null },
+        albertFilterToggle: {
+            parent: "🔵 Albert",
+            caption: "Filter toggle",
+        },
+        albertMenuFilterOnActiveCell: {
+            parent: "🔵 Albert",
+            caption: "Filter on active cell",
+        },
+        albertMenuClearAllFilters: {
+            parent: "🔵 Albert",
+            caption: "Clear all filters (Q)",
+        },
+        removeAllFiltersLegacy: {
+            parent: "🔵 Albert",
+            caption: "Remove all filters",
+        },
     },
 
     buttons: {
@@ -313,8 +328,7 @@ const SheetActions = {
             KeyboardUtils.simulateClick(rishiMenu);
         }
         if (albertMenu) {
-            KeyboardUtils.simulateClick(albertMenu);
-            KeyboardUtils.simulateClick(albertMenu);
+            this.clickMenu(this.menuItems.albertMenu);
         }
     },
 
@@ -760,30 +774,19 @@ const SheetActions = {
 
     // Rishi: Filtering
     filterToggle() {
-        // Make sure custom menus are created
-        // RP TODO: this is a hack, button may not work first time bc of the delay in creating the menu
-        // Find a better way to do this.
-        this.createCustomMenus();
-
-        this.clickMenu(this.menuItems.filterToggle);
+        this.clickMenu(this.menuItems.albertFilterToggle);
     },
 
     fitlerOnActiveCell() {
-        // Make sure custom menus are created
-        // RP TODO: this is a hack, button may not work first time bc of the delay in creating the menu
-        // Find a better way to do this.
-        this.createCustomMenus();
-
         this.clickMenu(this.menuItems.fitlerOnActiveCell);
     },
 
-    removeAllFilters() {
-        // Make sure custom menus are created
-        // RP TODO: this is a hack, button may not work first time bc of the delay in creating the menu
-        // Find a better way to do this.
-        this.createCustomMenus();
+    clearAllFilters() {
+        this.clickMenu(this.menuItems.albertMenuClearAllFilters);
+    },
 
-        this.clickMenu(this.menuItems.removeAllFilters);
+    removeAllFilters() {
+        this.clickMenu(this.menuItems.removeAllFiltersLegacy);
     },
 
     // Rishi: Zoom

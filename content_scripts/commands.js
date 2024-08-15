@@ -483,8 +483,8 @@ const Commands = {
             group: "filter",
         },
         removeAllFilters: {
-            fn: SheetActions.removeAllFilters.bind(SheetActions),
-            name: "Remove all filters",
+            fn: SheetActions.clearAllFilters.bind(SheetActions),
+            name: "Clear all filters",
             group: "filter",
         },
 
