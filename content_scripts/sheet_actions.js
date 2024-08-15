@@ -62,7 +62,7 @@ const SheetActions = {
             parent: "🔵 Albert",
             caption: "Clear all filters (Q)",
         },
-        removeAllFiltersLegacy: {
+        albertRemoveAllFiltersLegacy: {
             parent: "🔵 Albert",
             caption: "Remove all filters",
         },
@@ -330,6 +330,13 @@ const SheetActions = {
         if (albertMenu) {
             this.clickMenu(this.menuItems.albertMenu);
         }
+    },
+
+    getCustomMenuCaption() {
+        const rishiMenu = this.findMenuRootElement("Rishi");
+        const albertMenu = this.findMenuRootElement("Albert");
+        const menuItem = rishiMenu || albertMenu;
+        return menuItem.innerText;
     },
 
     clickMenuCustomItem(menuItemCaption) {
@@ -774,19 +781,43 @@ const SheetActions = {
 
     // Rishi: Filtering
     filterToggle() {
-        this.clickMenu(this.menuItems.albertFilterToggle);
+        // Handle `Rishi` and `Albert` menu
+        const parentMenuName = this.getCustomMenuCaption();
+        const menuItem = {
+            ...this.menuItems.albertFilterToggle,
+            parent: parentMenuName,
+        };
+        this.clickMenu(menuItem);
     },
 
     fitlerOnActiveCell() {
-        this.clickMenu(this.menuItems.fitlerOnActiveCell);
+        // Handle `Rishi` and `Albert` menu
+        const parentMenuName = this.getCustomMenuCaption();
+        const menuItem = {
+            ...this.menuItems.albertMenuFilterOnActiveCell,
+            parent: parentMenuName,
+        };
+        this.clickMenu(menuItem);
     },
 
     clearAllFilters() {
-        this.clickMenu(this.menuItems.albertMenuClearAllFilters);
+        // Handle `Rishi` and `Albert` menu
+        const parentMenuName = this.getCustomMenuCaption();
+        const menuItem = {
+            ...this.menuItems.albertMenuClearAllFilters,
+            parent: parentMenuName,
+        };
+        this.clickMenu(menuItem);
     },
 
     removeAllFilters() {
-        this.clickMenu(this.menuItems.removeAllFiltersLegacy);
+        // Handle `Rishi` and `Albert` menu
+        const parentMenuName = this.getCustomMenuCaption();
+        const menuItem = {
+            ...this.menuItems.albertRemoveAllFiltersLegacy,
+            parent: parentMenuName,
+        };
+        this.clickMenu(menuItem);
     },
 
     // Rishi: Zoom
