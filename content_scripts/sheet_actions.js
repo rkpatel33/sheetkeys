@@ -745,7 +745,7 @@ const SheetActions = {
     pasteFormatOnly() {
         console.log("Paste format only");
         this.activateMenu(this.menuItems.pastSpecialSubmenu);
-        this.clickMenu(this.menuItems.pasteValuesOnly);
+        this.clickMenu(this.menuItems.pasteFormatOnly);
         // Fallback if above doesn't work
         // UI.typeKey(KeyboardUtils.keyCodes.v, { meta: true, alt: true });
     },
