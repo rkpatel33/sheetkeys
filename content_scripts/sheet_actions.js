@@ -45,6 +45,7 @@ const SheetActions = {
         // Rishi: Custom 'Rishi' menu items
         pastSpecialSubmenu: { parent: "Edit", caption: "Paste special►" },
         pasteValuesOnly: { parent: "Edit", caption: "Values only" },
+        pasteFormatOnly: { parent: "Edit", caption: "Format only" },
         pasteFormulaOnly: { parent: "Edit", caption: "Formula only" },
         numberDollar2: "$ $0.00",
 
