@@ -96,19 +96,18 @@ const SheetActions = {
         white: "white",
         lightYellow: "light yellow",
         lightYellow3: "light yellow 3",
-        lightCornflowBlue3: "light cornflower blue 3",
+        lightCornflowerBlue3: "light cornflower blue 3",
         lightPurple3: "light purple 3",
         lightRed3: "light red 3",
         lightGray2: "light gray 2",
         // /////////////////////////////////////////
         // Rishi: Add more colors here.
         black: "black",
-        // blue: "blue",
-        blue: "cornflower blue",
+        blue: "blue",
+        cornFlowerBlue: "cornflower blue",
         darkGray1: "dark gray 1",
         darkRed: "red berry",
         lightBlue3: "light blue 3",
-        lightGray2: "light gray 2",
         red: "red",
         yellow: "yellow",
         // /////////////////////////////////////////
@@ -1060,7 +1059,7 @@ const SheetActions = {
         this.changeCellColor(this.colors.lightYellow3);
     },
     colorCellLightCornflowerBlue3() {
-        this.changeCellColor(this.colors.lightCornflowBlue3);
+        this.changeCellColor(this.colors.lightCornflowerBlue3);
     },
     colorCellLightPurple() {
         this.changeCellColor(this.colors.lightPurple3);
@@ -1149,7 +1148,7 @@ const SheetActions = {
         this.changeFontColor(this.colors.darkRed);
     },
     colorCellFontColorBlue() {
-        this.changeFontColor(this.colors.blue);
+        this.changeFontColor(this.colors.cornFlowerBlue);
     },
     colorCellFontColorBlack() {
         this.changeFontColor(this.colors.black);
