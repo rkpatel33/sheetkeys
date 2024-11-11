@@ -191,6 +191,16 @@ const Commands = {
             name: "Scroll half page up",
             group: "movement",
         },
+        scrollHalfPageRight: {
+            fn: SheetActions.scrollHalfPageRight.bind(SheetActions),
+            name: "Scroll half page right",
+            group: "movement",
+        },
+        scrollHalfPageLeft: {
+            fn: SheetActions.scrollHalfPageLeft.bind(SheetActions),
+            name: "Scroll half page left",
+            group: "movement",
+        },
         scrollToTop: {
             fn: SheetActions.scrollToTop.bind(SheetActions),
             name: "Scroll to top",
@@ -767,6 +777,8 @@ const Commands = {
             // Scrolling
             scrollHalfPageDown: "<C-d>",
             scrollHalfPageUp: "<C-u>",
+            scrollHalfPageRight: "<C-l>",
+            scrollHalfPageLeft: "<C-h>",
             scrollToTop: "g•g",
             scrollToBottom: "G",
 

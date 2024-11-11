@@ -860,6 +860,10 @@ const SheetActions = {
         return 17;
     },
 
+    columnWide() {
+        return 100;
+    },
+
     // The approximate number of visible rows. It's probably possible to compute this precisely.
     visibleRowCount() {
         return Math.ceil(
@@ -868,8 +872,16 @@ const SheetActions = {
         );
     },
 
+    visibleColumnCount() {
+        return Math.ceil(
+            document.querySelector(".grid-scrollable-wrapper").offsetWidth /
+                this.columnWide()
+        );
+    },
+
     // NOTE(philc): It would be nice to improve these scrolling commands. They're somewhat slow and imprecise.
     scrollHalfPageDown() {
+        console.log("Scrolling half page down");
         var rowCount = Math.floor(this.visibleRowCount() / 2);
         for (let i = 0; i < rowCount; i++) {
             this.typeKeyFn(KeyboardUtils.keyCodes.down);
@@ -877,9 +889,26 @@ const SheetActions = {
     },
 
     scrollHalfPageUp() {
+        console.log("Scrolling half page up");
         var rowCount = Math.floor(this.visibleRowCount() / 2);
         for (let i = 0; i < rowCount; i++) {
             this.typeKeyFn(KeyboardUtils.keyCodes.up);
+        }
+    },
+
+    scrollHalfPageRight() {
+        console.log("Scrolling half page right");
+        var columnCount = Math.floor(this.visibleColumnCount() / 2);
+        for (let i = 0; i < columnCount; i++) {
+            this.typeKeyFn(KeyboardUtils.keyCodes.right);
+        }
+    },
+
+    scrollHalfPageLeft() {
+        console.log("Scrolling half page left");
+        var columnCount = Math.floor(this.visibleColumnCount() / 2);
+        for (let i = 0; i < columnCount; i++) {
+            this.typeKeyFn(KeyboardUtils.keyCodes.left);
         }
     },
 
