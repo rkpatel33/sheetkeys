@@ -33,6 +33,7 @@ const SheetActions = {
         rowAbove: { parent: "Insert", caption: /^Insert \d+ row above/ },
         rowBelow: { parent: "Insert", caption: /^Insert \d+ row below/ },
         rows: { parent: "Insert", caption: "Rows►" },
+        splitTextToColumns: { parent: "Data", caption: "Split text to columns" },
         undo: { parent: "Edit", caption: "Undo" },
         unmerge: { parent: "Format", caption: "Unmerge" },
         zoom: { parent: "View", caption: "Zoom►" },
@@ -1240,6 +1241,13 @@ const SheetActions = {
             ".docs-butterbar-dismiss"
         );
         for (let button of dismissButtons) KeyboardUtils.simulateClick(button);
+    },
+
+    splitTextToColumns() {
+        this.clickMenu(this.menuItems.splitTextToColumns);
+        // Immediately refocus by entering and exiting edit mode
+        this.editCell();
+        this.typeKeyFn(KeyboardUtils.keyCodes.esc);
     },
 
     // Opens a new tab for each link in the current cell.
