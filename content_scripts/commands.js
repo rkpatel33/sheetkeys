@@ -629,6 +629,11 @@ const Commands = {
             name: "Open tabs list",
             group: "ui",
         },
+        splitTextToColumns: {
+            fn: SheetActions.splitTextToColumns.bind(SheetActions),
+            name: "Split text to columns",
+            group: "editing",
+        },
 
         // /////////////////////////////////////////
     },
@@ -743,6 +748,7 @@ const Commands = {
             openCommandPalette: ":",
             openSearch: "slash",
             openTabsList: "P",
+            splitTextToColumns: "T",
 
             // Editing
             editCell: "i",
