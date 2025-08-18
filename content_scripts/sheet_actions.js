@@ -1245,13 +1245,9 @@ const SheetActions = {
 
     splitTextToColumns() {
         this.clickMenu(this.menuItems.splitTextToColumns);
-        // After split operation, call editCell to refocus, then escape
-        setTimeout(() => {
-            this.editCell();
-            setTimeout(() => {
-                this.typeKeyFn(KeyboardUtils.keyCodes.esc);
-            }, 100);
-        }, 500);
+        // Immediately refocus by entering and exiting edit mode
+        this.editCell();
+        this.typeKeyFn(KeyboardUtils.keyCodes.esc);
     },
 
     // Opens a new tab for each link in the current cell.
