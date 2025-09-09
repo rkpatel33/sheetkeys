@@ -40,6 +40,9 @@ const UI = {
             );
         });
 
+        // Auto-zoom to 90% when opening in a new tab
+        this.setupAutoZoom();
+
         // Key event handlers fire on window before they do on document. Prefer window for key events so the page
         // can't set handlers to grab keys before this extension does.
         window.addEventListener("keydown", (e) => this.onKeydown(e), true);
@@ -49,6 +52,55 @@ const UI = {
         // If a key mapping setting is changed from another tab, update this tab's key mappings.
         chrome.runtime.onMessage.addListener((message) => {
             if (message == "keyMappingChange") this.loadKeyMappings();
+        });
+    },
+
+    /**
+     * Sets up auto-zoom functionality for when a Google Sheet opens.
+     * Waits for the sheet to fully load before applying zoom.
+     */
+    setupAutoZoom() {
+        // Always wait for the sheet to load and apply zoom
+        // This works for new tabs, reloads, and navigation
+        this.waitForSheetLoad().then(() => {
+            // Apply 90% zoom after a short delay to ensure UI is ready
+            setTimeout(() => {
+                console.log("SheetKeys: Auto-zooming to 90%");
+                SheetActions.setZoom90();
+            }, 500);
+        });
+    },
+
+    /**
+     * Waits for the Google Sheet to be fully loaded and ready.
+     * Returns a promise that resolves when the sheet is ready.
+     */
+    waitForSheetLoad() {
+        return new Promise((resolve) => {
+            const checkReady = () => {
+                // Check for key Google Sheets elements that indicate the sheet is loaded
+                const gridContainer = document.getElementById("waffle-grid-container");
+                const menuBar = document.querySelector('[role="menubar"]');
+                const cellInput = document.getElementById("t-formula-bar-input-container");
+                
+                if (gridContainer && menuBar && cellInput) {
+                    // Additional check: ensure the grid has content
+                    const cells = gridContainer.querySelector('.waffle-grid-container');
+                    if (cells) {
+                        resolve();
+                        return;
+                    }
+                }
+                
+                // If not ready, check again in 100ms
+                setTimeout(checkReady, 100);
+            };
+            
+            // Start checking immediately
+            checkReady();
+            
+            // Fallback: resolve after 5 seconds even if elements aren't found
+            setTimeout(resolve, 5000);
         });
     },
 
