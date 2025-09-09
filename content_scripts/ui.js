@@ -67,6 +67,7 @@ const UI = {
             setTimeout(() => {
                 console.log("SheetKeys: Auto-zooming to 90%");
                 SheetActions.setZoom90();
+                this.showToast("Zoomed to 90%", 2000);
             }, 500);
         });
     },
@@ -102,6 +103,79 @@ const UI = {
             // Fallback: resolve after 5 seconds even if elements aren't found
             setTimeout(resolve, 5000);
         });
+    },
+
+    /**
+     * Shows a non-blocking toast notification.
+     * @param {string} message - The message to display
+     * @param {number} duration - How long to show the toast in milliseconds (default: 3000)
+     */
+    showToast(message, duration = 3000) {
+        // Create toast container if it doesn't exist
+        let toastContainer = document.getElementById('sheetkeys-toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'sheetkeys-toast-container';
+            toastContainer.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                pointer-events: none;
+            `;
+            document.body.appendChild(toastContainer);
+        }
+
+        // Create toast element
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        `;
+        
+        // Add icon and message
+        toast.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="16 12 12 8 8 12"></polyline>
+                <line x1="12" y1="16" x2="12" y2="8"></line>
+            </svg>
+            <span>${message}</span>
+        `;
+        
+        toastContainer.appendChild(toast);
+
+        // Animate in
+        requestAnimationFrame(() => {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(0)';
+        });
+
+        // Remove after duration
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                toast.remove();
+                // Remove container if no more toasts
+                if (toastContainer.children.length === 0) {
+                    toastContainer.remove();
+                }
+            }, 300);
+        }, duration);
     },
 
     async loadKeyMappings() {
