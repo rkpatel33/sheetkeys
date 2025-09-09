@@ -119,7 +119,7 @@ const UI = {
             toastContainer.style.cssText = `
                 position: fixed;
                 bottom: 20px;
-                left: 20px;
+                right: 20px;
                 z-index: 10000;
                 pointer-events: none;
             `;
@@ -138,7 +138,7 @@ const UI = {
             font-size: 14px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             opacity: 0;
-            transform: translateX(-100%);
+            transform: translateX(100%);
             transition: all 0.3s ease;
             pointer-events: auto;
             display: flex;
@@ -167,7 +167,7 @@ const UI = {
         // Remove after duration
         setTimeout(() => {
             toast.style.opacity = '0';
-            toast.style.transform = 'translateX(-100%)';
+            toast.style.transform = 'translateX(100%)';
             setTimeout(() => {
                 toast.remove();
                 // Remove container if no more toasts
