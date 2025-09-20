@@ -712,8 +712,10 @@ const Commands = {
             alignLeft: ";•a",
             alignCenter: ";•s",
             alignRight: ";•d",
-            alignTop: ";•a•t",
-            alignBottom: ";•a•b",
+            // NOTE: alignTop and alignBottom are commented out because they conflict with alignLeft
+            // The ;•a prefix is used by alignLeft, so ;•a•t and ;•a•b will never be reachable
+            // alignTop: ";•a•t",
+            // alignBottom: ";•a•b",
 
             // Rishi: Zoom
             zoom125: ";•z•number1",

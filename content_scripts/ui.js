@@ -323,6 +323,7 @@ const UI = {
         }
 
         this.keyQueue.push(keyString);
+
         // There are keymaps for two different modes: insert and normal. When we're in one of the visual modes,
         // use the normal keymap. The commands themselves may implement mode-specific behavior.
         const modeToUse = SheetActions.mode == "insert" ? "insert" : "normal";

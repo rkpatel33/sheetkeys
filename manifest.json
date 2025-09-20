@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Sheetkeys (Rishi)",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "TODO",
   "permissions": [
     "storage"

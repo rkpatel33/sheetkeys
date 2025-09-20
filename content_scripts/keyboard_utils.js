@@ -23,7 +23,7 @@ const keyCodes = {
     upArrow: 38,
     rightArrow: 39,
     downArrow: 40,
-    optionLeft: 18,
+    // optionLeft: 18, // Removed - 18 is the Alt/Option modifier key, not a combination
     slash: 191,
     c: 67,
     d: 68,
