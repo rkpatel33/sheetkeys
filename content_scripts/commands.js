@@ -343,6 +343,15 @@ const Commands = {
             name: "Show help",
             group: "other",
         },
+        showQuickHelp: {
+            fn: () => {
+                if (window.UI && window.UI.quickHelp) {
+                    window.UI.quickHelp.toggle();
+                }
+            },
+            name: "Show quick reference",
+            group: "other",
+        },
         toggleFullScreen: {
             fn: SheetActions.toggleFullScreen.bind(SheetActions),
             name: "Toggle full screen",
@@ -825,6 +834,7 @@ const Commands = {
             // RP TODO: For some reason the ? is not working for me but it is in upstream
             // "showHelp": "?",
             showHelp: ";•h",
+            showQuickHelp: ";•q", // "q" for quick reference
             toggleFullScreen: ";•w•f", // Mnemonic for "window full screen"
             // "openCellAsUrl": ";•o", -- Rishi: This is replaced with font color formatting
             // For some reason Cmd-r, which normally reloads the page, is disabled by Sheets.

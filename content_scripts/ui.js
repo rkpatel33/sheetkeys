@@ -49,6 +49,9 @@ const UI = {
 
         this.loadKeyMappings();
 
+        // Initialize QuickHelp
+        this.quickHelp = new QuickHelp();
+
         // If a key mapping setting is changed from another tab, update this tab's key mappings.
         chrome.runtime.onMessage.addListener((message) => {
             if (message == "keyMappingChange") this.loadKeyMappings();
@@ -301,6 +304,12 @@ const UI = {
     onKeydown(e) {
         const keyString = KeyboardUtils.getKeyString(e);
         // console.log "keydown event. keyString:", keyString, e.keyCode, e.keyIdentifier, e
+
+        // If quick help is visible, let it handle all keys
+        if (this.quickHelp && this.quickHelp.isVisible) {
+            return;
+        }
+
         if (this.ignoreKeys || SheetActions.mode == "disabled") {
             return;
         }
