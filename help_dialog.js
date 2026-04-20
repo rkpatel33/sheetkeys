@@ -32,6 +32,25 @@ const EventDispatcher = {
 };
 
 class HelpDialog {
+  // Map command keys to their actual hex colors for display
+  static colorMap = {
+    // Cell background colors
+    colorCellWhite: "#ffffff",
+    colorCellLightYellow3: "#fff2cc",
+    colorCellLightCornflowerBlue3: "#c9daf8",
+    colorCellLightPurple: "#d9d2e9",
+    colorCellLightRed3: "#f4cccc",
+    colorCellLightGray2: "#efefef",
+    colorCellLightYellow: "#ffff00",
+    colorCellLightBlue3: "#cfe2f3",
+    colorCellDarkGray1: "#666666",
+    // Font colors
+    colorCellFontColorRed: "#ff0000",
+    colorCellFontColorDarkRed: "#980000",
+    colorCellFontColorBlue: "#4a86e8",
+    colorCellFontColorBlack: "#000000",
+  };
+
   constructor() {
     // State for when a key mapping is being edited.
     this.edits = {
@@ -217,7 +236,7 @@ class HelpDialog {
     const commandsByGroup = this.getCommandsByGroup();
 
     // These are the order in which they'll be shown in the dialog.
-    const groups = ["movement", "selection", "editing", "formatting", "other"];
+    const groups = ["movement", "selection", "editing", "formatting", "cell color", "font color", "other"];
 
     const capitalize = function(str) {
       const lower = str.toLowerCase();
@@ -251,7 +270,19 @@ class HelpDialog {
         const row = trTemplate.cloneNode(true);
         row.dataset.command = commandKey;
         row.dataset.mapping = mapping || "";
-        row.querySelector(".display-name").innerText = command.name || commandKey;
+        const displayNameEl = row.querySelector(".display-name");
+        const hexColor = HelpDialog.colorMap[commandKey];
+        if (hexColor) {
+          // Add color swatch for color commands
+          const swatch = document.createElement("span");
+          swatch.className = "color-swatch";
+          swatch.style.backgroundColor = hexColor;
+          displayNameEl.appendChild(swatch);
+          const text = document.createTextNode(" " + (command.name || commandKey));
+          displayNameEl.appendChild(text);
+        } else {
+          displayNameEl.innerText = command.name || commandKey;
+        }
         const shortcutEl = row.querySelector(".shortcut");
         this.displayKeyString(shortcutEl, mapping);
         tbody.appendChild(row);

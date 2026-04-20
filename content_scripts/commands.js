@@ -664,22 +664,18 @@ const Commands = {
             moveEndLeft2: "b",
             moveEndDown2: "E",
             moveEndUp2: "B",
-            // Alt mappings
-            moveEndDown: "<A-j>",
-            moveEndUp: "<A-k>",
-            moveEndRight: "<A-l>",
-            moveEndLeft: "<A-h>",
+            // Shift+HJKL jumps to the end of a run, like b/e/B/E in vim.
+            // Selection across a range is done via Visual mode (V) + motions.
+            moveEndDown: "J",
+            moveEndUp: "K",
+            moveEndRight: "L",
+            moveEndLeft: "H",
 
             // Row & column movement
             // moveRowsDown: "<A-j>",
             // moveRowsUp: "<A-k>",
             // moveColumnsLeft: "<A-h>",
             // moveColumnsRight: "<A-l>",
-
-            moveDownAndSelect: "J",
-            moveUpAndSelect: "K",
-            moveRightAndSelect: "L",
-            moveLeftAndSelect: "H",
 
             // NOTE: You can't map a command to 2 different shortcuts, use this or `e` and `b`
             // "moveEndRight": "<M-l>",

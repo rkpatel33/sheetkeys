@@ -71,6 +71,17 @@ thead tr td {
   padding-bottom: 10px;
 }
 
+/* Color swatch for color commands */
+.color-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #999;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
 tbody tr:last-of-type td {
   padding-bottom: 18px;
 }
