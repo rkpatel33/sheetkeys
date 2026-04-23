@@ -631,7 +631,14 @@ const SheetActions = {
     },
 
     openTabsList() {
-        console.log("Opening tabs list");
+        // Shows the SheetKeys TabSearch overlay: an input box with a live-filtered
+        // list of tabs. Falls back to Sheets' built-in "all tabs" menu if the
+        // overlay module somehow isn't loaded.
+        if (typeof UI !== "undefined" && UI.tabSearch) {
+            UI.tabSearch.show();
+            return;
+        }
+        console.log("TabSearch unavailable; falling back to native tabs list");
         var el = document.querySelectorAll(".docs-sheet-all-button").item(0);
         KeyboardUtils.simulateClick(el);
     },

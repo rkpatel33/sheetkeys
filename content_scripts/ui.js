@@ -52,6 +52,9 @@ const UI = {
         // Initialize QuickHelp
         this.quickHelp = new QuickHelp();
 
+        // Initialize TabSearch (overlay for Shift+P sheet jumper).
+        this.tabSearch = new TabSearch();
+
         // If a key mapping setting is changed from another tab, update this tab's key mappings.
         chrome.runtime.onMessage.addListener((message) => {
             if (message == "keyMappingChange") this.loadKeyMappings();
@@ -307,6 +310,13 @@ const UI = {
 
         // If quick help is visible, let it handle all keys
         if (this.quickHelp && this.quickHelp.isVisible) {
+            return;
+        }
+
+        // If the TabSearch overlay is visible, let its input own all keys
+        // (filter text, arrow keys, Enter, Esc) without going through the
+        // normal keybinding pipeline.
+        if (this.tabSearch && this.tabSearch.isVisible) {
             return;
         }
 
