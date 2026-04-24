@@ -139,7 +139,10 @@ a.close:hover {
 
 .groups-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  /* 460px minmax keeps long command names like "Color cell light corn flower
+     blue 3" on one line without ellipsis. The auto-fill still collapses to
+     1 column on narrow viewports. */
+  grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
   gap: 16px;
   align-items: start;
 }
@@ -199,9 +202,10 @@ a.close:hover {
 .display-name {
   color: var(--fg);
   font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* Allow wrapping as a safety net for any unusually long label rather than
+     hiding text behind an ellipsis. The wider column above should keep this
+     to a single line in normal use. */
+  overflow-wrap: anywhere;
 }
 
 /* Color swatch for color commands. */
