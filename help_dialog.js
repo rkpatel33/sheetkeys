@@ -236,7 +236,13 @@ class HelpDialog {
     const commandsByGroup = this.getCommandsByGroup();
 
     // These are the order in which they'll be shown in the dialog.
-    const groups = ["movement", "selection", "editing", "formatting", "cell color", "font color", "other"];
+    // Must include every group declared in getCommandsByGroup() above, otherwise
+    // commands in the missing groups silently drop out of the `?` customization dialog.
+    const groups = [
+      "movement", "selection", "editing", "formatting",
+      "cell color", "font color", "number format", "border",
+      "tabs", "zoom", "ui", "filter", "other",
+    ];
 
     const capitalize = function(str) {
       const lower = str.toLowerCase();

@@ -20,7 +20,7 @@ const SheetActions = {
         // This is a sub-item of the "Freeze" menu.
         freezeColumn: { parent: "View", caption: /Up to column [A-Z]+/ },
         fullScreen: { parent: "View", caption: "Full screen" },
-        mergeAll: { parent: "Format", caption: "Merge all" },
+        mergeAll: { parent: "Format", caption: /^Merge all\b/ },
         mergeHorizontally: { parent: "Format", caption: "Merge horizontally" },
         mergeVertically: { parent: "Format", caption: "Merge vertically" },
         move: { parent: "Edit", caption: "Move►" },
@@ -28,13 +28,15 @@ const SheetActions = {
         moveRowDown: { parent: "Edit", caption: /Rows? down/ },
         moveColumnLeft: { parent: "Edit", caption: /Columns? left/ },
         moveColumnRight: { parent: "Edit", caption: /Columns? right/ },
-        paste: { parent: "Edit", caption: "Paste" },
-        redo: { parent: "Edit", caption: "Redo" },
+        // Tightened to avoid matching "Paste special" / "Paste values only" etc. which all
+        // startsWith("Paste"). Same class of bug as the "Copy link to this cell" fix above.
+        paste: { parent: "Edit", caption: /^Paste(?! )/ },
+        redo: { parent: "Edit", caption: /^Redo\b/ },
         rowAbove: { parent: "Insert", caption: /^Insert \d+ row above/ },
         rowBelow: { parent: "Insert", caption: /^Insert \d+ row below/ },
         rows: { parent: "Insert", caption: "Rows►" },
         splitTextToColumns: { parent: "Data", caption: "Split text to columns" },
-        undo: { parent: "Edit", caption: "Undo" },
+        undo: { parent: "Edit", caption: /^Undo\b/ },
         unmerge: { parent: "Format", caption: "Unmerge" },
         zoom: { parent: "View", caption: "Zoom►" },
         zoom75: { parent: "View", caption: "75%" },
@@ -798,7 +800,7 @@ const SheetActions = {
         this.clickMenu(menuItem);
     },
 
-    fitlerOnActiveCell() {
+    filterOnActiveCell() {
         // Handle `Rishi` and `Albert` menu
         const parentMenuName = this.getCustomMenuCaption();
         const menuItem = {

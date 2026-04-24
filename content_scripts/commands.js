@@ -493,11 +493,11 @@ const Commands = {
         //NOTE: Only works if Rishi OR Albert menu is installed
         filterToggle: {
             fn: SheetActions.filterToggle.bind(SheetActions),
-            name: "Toogl filter",
+            name: "Toggle filter",
             group: "filter",
         },
-        fitlerOnActiveCell: {
-            fn: SheetActions.fitlerOnActiveCell.bind(SheetActions),
+        filterOnActiveCell: {
+            fn: SheetActions.filterOnActiveCell.bind(SheetActions),
             name: "Filter on active cell",
             group: "filter",
         },
@@ -705,7 +705,7 @@ const Commands = {
 
             // Rishi: Filtering
             // RP TODO: Need to fix this, use new debugging tools from philc
-            // "fitlerOnActiveCell": "q",
+            // "filterOnActiveCell": "q",
             filterToggle: "q",
             removeAllFilters: "Q",
 
@@ -728,8 +728,18 @@ const Commands = {
             zoom90: ";•z•9",
             zoom80: ";•z•8",
 
-            // Rishi: Background color
-            colorCellLightYellow: "c•y",
+            // Rishi: Color chord convention
+            //   `;`-prefix = font colors (primary — most used).
+            //   `c`-prefix = cell background colors (secondary extensions).
+            // The one overlap is yellow background, which is bound via `;•p` below
+            // (kept because it sits next to the `;•u/i/o/O` font-color cluster in muscle
+            // memory). The commented `c•y` line would be the natural fit for the `c•?`
+            // cluster, but JS object-literal dedup means one command can only have
+            // one binding with the current mapping shape — `;•p` wins.
+            // To make both work, see the Tier-3 mapping-shape refactor notes.
+
+            // Background colors (secondary)
+            // colorCellLightYellow: "c•y",  // see note above — shadowed by `;•p`
             colorCellWhite: "c•w",
             colorCellLightCornflowerBlue3: "c•b",
             colorCellLightPurple: "c•p",
@@ -737,11 +747,11 @@ const Commands = {
             colorCellLightGray2: "c•g",
             colorCellDarkGray1: "c•G",
 
-            // Rishi: Font color
+            // Font colors (primary)
             colorCellFontColorBlue: ";•u",
             colorCellFontColorBlack: ";•i",
             colorCellFontColorRed: ";•o",
-            colorCellLightYellow: ";•p", // This does background color
+            colorCellLightYellow: ";•p", // yellow background — lives here by convention
             colorCellFontColorDarkRed: ";•O",
 
             // Rishi: Borders

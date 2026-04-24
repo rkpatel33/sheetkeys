@@ -12,9 +12,12 @@ const Settings = {
         const values = settings[this.settingsKey] || {};
 
         // If the user has a keybinding which refers to a command that no longer exists, prune it.
+        // (Previously this deleted `values.keyMappings[mode][commandName]` — `mode` was undefined
+        //  here and the map is flat `{commandName: key}`, so any stale binding would crash
+        //  Settings.get() and silently break all shortcuts until chrome.storage.sync was reset.)
         for (let commandName of Object.keys(values.keyMappings || {})) {
             if (!Commands.commands[commandName])
-                delete values.keyMappings[mode][commandName];
+                delete values.keyMappings[commandName];
         }
 
         return Object.assign(defaultOptions, values);
