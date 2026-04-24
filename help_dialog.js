@@ -109,6 +109,14 @@ class HelpDialog {
     this.el = helpDialog;
     this.editingKeydownListener = (e) => this.onEditingKeydown(e);
     this.el.shadowRoot.addEventListener("click", async (e) => await this.onClick(e));
+
+    // Detach the card and row templates from the rendered grid and cache them.
+    // populateDialog clears `.groups-grid` on each open, so the templates need to
+    // live outside that subtree to survive re-renders.
+    const cardTemplateEl = shadow.querySelector(".group-card[data-template]");
+    this.cardTemplate = cardTemplateEl.cloneNode(true);
+    this.rowTemplate = this.cardTemplate.querySelector(".binding-row[data-template]").cloneNode(true);
+    cardTemplateEl.remove();
   }
 
   async onClick(event) {
@@ -134,8 +142,8 @@ class HelpDialog {
       // Another mapping was being edited. Cancel that, so that we have only one edit in progress at a time.
       this.cancelEditing();
     }
-    const tr = clickTarget.closest("tr");
-    this.showEditingUI(tr, true);
+    const row = clickTarget.closest(".binding-row");
+    this.showEditingUI(row, true);
     // Remove the UI elements which shows the existing key binding.
     const shortcutEl = this.edits.rowEl.querySelector(".shortcut");
     shortcutEl.focus();
@@ -144,16 +152,16 @@ class HelpDialog {
   }
 
   // Shows/hides the editing UI, and sets the local state of `edits` accordingly.
-  showEditingUI(tr, visibility) {
-    tr.querySelector(".editing-controls").style.visibility = visibility ? "visible" : "hidden";
-    tr.querySelector(".edit").style.visibility = visibility ? "hidden" : "visible";
-    const shortcut = tr.querySelector(".shortcut");
+  showEditingUI(row, visibility) {
+    row.querySelector(".editing-controls").style.visibility = visibility ? "visible" : "hidden";
+    row.querySelector(".edit").style.visibility = visibility ? "hidden" : "visible";
+    const shortcut = row.querySelector(".shortcut");
     if (visibility)
       shortcut.classList.add("editing");
     else
       shortcut.classList.remove("editing");
     this.edits.keyStrings = [];
-    this.edits.rowEl = visibility ? tr : null;
+    this.edits.rowEl = visibility ? row : null;
   }
 
   // Creates HTML within shortcutEl to display the given key mapping.
@@ -185,7 +193,7 @@ class HelpDialog {
 
     const normalModeMappings = Object.entries((await Settings.loadUserKeyMappings()).normal);
 
-    for (const row of this.el.shadowRoot.querySelectorAll("tr[data-command]")) {
+    for (const row of this.el.shadowRoot.querySelectorAll(".binding-row[data-command]")) {
       const rowMapping = row.dataset.mapping;
       for (const [command, mapping] of normalModeMappings) {
         if (rowMapping == mapping && row.dataset.command != command) {
@@ -250,51 +258,52 @@ class HelpDialog {
     }
 
     const shadow = this.el.shadowRoot;
-    const theadTemplate = shadow.querySelector("thead");
-    const tbodyTemplate = shadow.querySelector("tbody");
-    const trTemplate = tbodyTemplate.querySelector("tr");
-
-    const table = shadow.querySelector("table");
-    table.innerHTML = "";
+    const grid = shadow.querySelector(".groups-grid");
+    grid.innerHTML = "";
 
     // Only show bindings, and only allow customization, for normal mode.
     const normalModeMappings = (await Settings.loadUserKeyMappings()).normal;
 
     for (const group of groups) {
-      const thead = theadTemplate.cloneNode(true);
-      thead.querySelector("td").innerText = capitalize(group);
+      const commandKeys = (commandsByGroup[group] || [])
+        .filter(k => !Commands.commands[k].hiddenFromHelp);
+      if (commandKeys.length === 0) continue;
 
-      const commandKeys = commandsByGroup[group];
+      const card = this.cardTemplate.cloneNode(true);
+      card.removeAttribute("data-template");
+      card.querySelector(".group-title").innerText = capitalize(group);
 
-      const tbody = tbodyTemplate.cloneNode();
+      const list = card.querySelector(".binding-list");
+      list.innerHTML = "";
 
       for (const commandKey of commandKeys) {
         const command = Commands.commands[commandKey];
-        if (command.hiddenFromHelp)
-          continue;
         const mapping = normalModeMappings[commandKey]; // This can be null.
-        const row = trTemplate.cloneNode(true);
+
+        const row = this.rowTemplate.cloneNode(true);
+        row.removeAttribute("data-template");
         row.dataset.command = commandKey;
         row.dataset.mapping = mapping || "";
+
         const displayNameEl = row.querySelector(".display-name");
         const hexColor = HelpDialog.colorMap[commandKey];
         if (hexColor) {
-          // Add color swatch for color commands
+          // Color swatch is a sibling of the name span so it sits in the flex row
+          // alongside the label without forcing the label text to wrap around it.
           const swatch = document.createElement("span");
           swatch.className = "color-swatch";
           swatch.style.backgroundColor = hexColor;
-          displayNameEl.appendChild(swatch);
-          const text = document.createTextNode(" " + (command.name || commandKey));
-          displayNameEl.appendChild(text);
-        } else {
-          displayNameEl.innerText = command.name || commandKey;
+          displayNameEl.parentElement.insertBefore(swatch, displayNameEl);
         }
+        displayNameEl.innerText = command.name || commandKey;
+
         const shortcutEl = row.querySelector(".shortcut");
         this.displayKeyString(shortcutEl, mapping);
-        tbody.appendChild(row);
+
+        list.appendChild(row);
       }
-      table.appendChild(thead);
-      table.appendChild(tbody);
+
+      grid.appendChild(card);
     }
 
     await this.showValidationErrors();
