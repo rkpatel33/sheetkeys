@@ -2,7 +2,7 @@ const SheetActions = {
     // NOTE(philc): When developing, you can use this snippet to preview all available menu items:
     // Array.from(document.querySelectorAll(".goog-menuitem")).forEach((i) => console.log(i.innerText))
     menuItems: {
-        copy: { parent: "Edit", caption: "Copy" },
+        copy: { parent: "Edit", caption: /^Copy(?! link)/ },
         delete: { parent: "Edit", caption: "Delete►" },
         // Avoid matching the menu item "Column stats".
         deleteColumn: { parent: "Edit", caption: /^Column[s]? (?!stats)/ },
