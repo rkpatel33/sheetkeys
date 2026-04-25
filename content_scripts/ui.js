@@ -40,14 +40,17 @@ const UI = {
             );
         });
 
-        // Auto-zoom to 90% when opening in a new tab
+        // Load key mappings up front; capture the promise so we can announce
+        // "ready" only once shortcuts are actually live.
+        this.keyMappingsReady = this.loadKeyMappings();
+
+        // Auto-zoom to 90% when opening in a new tab; also shows a "ready" toast
+        // with the extension version once both the sheet and key mappings load.
         this.setupAutoZoom();
 
         // Key event handlers fire on window before they do on document. Prefer window for key events so the page
         // can't set handlers to grab keys before this extension does.
         window.addEventListener("keydown", (e) => this.onKeydown(e), true);
-
-        this.loadKeyMappings();
 
         // Initialize QuickHelp
         this.quickHelp = new QuickHelp();
@@ -66,9 +69,12 @@ const UI = {
      * Waits for the sheet to fully load before applying zoom.
      */
     setupAutoZoom() {
-        // Always wait for the sheet to load and apply zoom
-        // This works for new tabs, reloads, and navigation
-        this.waitForSheetLoad().then(() => {
+        // Wait for both the sheet DOM and the key mappings before announcing
+        // readiness — the latter is what makes shortcuts actually live.
+        Promise.all([this.waitForSheetLoad(), this.keyMappingsReady]).then(() => {
+            const version = chrome.runtime.getManifest().version;
+            this.showToast(`SheetKeys v${version} ready`, 2500);
+
             // Apply 90% zoom after a short delay to ensure UI is ready
             setTimeout(() => {
                 console.log("SheetKeys: Auto-zooming to 90%");
