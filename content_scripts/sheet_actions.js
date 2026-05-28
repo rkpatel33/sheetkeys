@@ -9,7 +9,7 @@ const SheetActions = {
         // This string with a space at the end is meant to match the button "Row X(D)" where X is some
         // number. When multiple rows are selected, the capture is "Rows X(D)".
         deleteRow: { parent: "Edit", caption: /^Row[s]? \d+\(D\)/ },
-        deleteValues: { parent: "Edit", caption: "Values" },
+        deleteValues: { parent: "Edit", caption: /^Values$/ },
         fontSize8: { parent: "Format", caption: /^8$/ },
         fontSize10: { parent: "Format", caption: /^10$/ },
         fontSize12: { parent: "Format", caption: /^12$/ },
@@ -659,6 +659,11 @@ const SheetActions = {
     clear() {
         this.activateMenu(this.menuItems.delete);
         this.clickMenu(this.menuItems.deleteValues);
+    },
+
+    // Simulates a native Delete keypress — clears cell contents the same way the keyboard Delete key does.
+    clearValues() {
+        this.typeKeyFn(KeyboardUtils.keyCodes.delete);
     },
 
     // Creates a row below and begins editing it.

@@ -106,6 +106,11 @@ const Commands = {
             name: "Clear",
             group: "editing",
         },
+        clearValues: {
+            fn: SheetActions.clearValues.bind(SheetActions),
+            name: "Clear values (native delete)",
+            group: "editing",
+        },
         changeCell: {
             fn: SheetActions.changeCell.bind(SheetActions),
             name: "Change cell",
@@ -779,6 +784,7 @@ const Commands = {
             insertRowAbove: "S",
             deleteRowsOrColumns: "d•d",
             clear: "x",
+            clearValues: "delete",
             changeCell: "c•c",
 
             // Merging cells
